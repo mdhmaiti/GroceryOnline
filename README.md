@@ -28,3 +28,4 @@ bun dev
 3. install the prisma orm from the docs, install the prisma client for the crud operations. You can install the prisma client at the begining there is no problem just sync it with the prisma generate later.
 4. set up the docker and pull the postgres imgage. U can do this by many ways but i suggest do it by docker compose so that everytime you run this application u don't have to manually start the postgres db again.
 5. point to note : always use the volume when you are connecting to the db, or the data will be lost ( otherwise there will be no point to have the db)
+6. also use the pgadmin container (to familiarize youself)
