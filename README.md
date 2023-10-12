@@ -41,3 +41,5 @@ bun dev
 5. point to note : always use the volume when you are connecting to the db, or the data will be lost ( otherwise there will be no point to have the db)
 6. also use the pgadmin container (to familiarize youself) u can also ignore this u will use the prisma studio
 7. write the basic category , product and the order model figure out the link between the the things and how the user is related. eg -> orders linked via user email.
+8. after doing so use ``` npx prisma migrate dev ```
+9. note the env file should be exactly ``` .env ```
