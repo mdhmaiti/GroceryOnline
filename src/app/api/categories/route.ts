@@ -10,7 +10,7 @@ export const GET = async () => {
   } catch (error) {
     console.log("there is an error", error);
     return new NextResponse(JSON.stringify({ message: "error in the get" }), {
-      status: 400,
+      status: 500,
     });
   }
 };
