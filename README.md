@@ -10,6 +10,17 @@ pnpm dev
 bun dev
 ```
 
+## set up the project locally
+
+- DATABASE_URL="your url"
+
+- POSTGRES_DB="your database name"
+- POSTGRES_USER="your username"
+- POSTGRES_PASSWORD="your password"
+
+- PGADMIN_DEFAULT_EMAIL= "your email"
+- PGADMIN_DEFAULT_PASSWORD= "your password"
+
 ## tech used
 
 1. next js app router.
@@ -28,4 +39,5 @@ bun dev
 3. install the prisma orm from the docs, install the prisma client for the crud operations. You can install the prisma client at the begining there is no problem just sync it with the prisma generate later.
 4. set up the docker and pull the postgres imgage. U can do this by many ways but i suggest do it by docker compose so that everytime you run this application u don't have to manually start the postgres db again.
 5. point to note : always use the volume when you are connecting to the db, or the data will be lost ( otherwise there will be no point to have the db)
-6. also use the pgadmin container (to familiarize youself)
+6. also use the pgadmin container (to familiarize youself) u can also ignore this u will use the prisma studio
+7. write the basic category , product and the order model figure out the link between the the things and how the user is related. eg -> orders linked via user email.
