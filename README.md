@@ -43,3 +43,5 @@ bun dev
 7. write the basic category , product and the order model figure out the link between the the things and how the user is related. eg -> orders linked via user email.
 8. after doing so use ``` npx prisma migrate dev ```
 9. note the env file should be exactly ``` .env ```
+10. now use the ``` npx prisma studio ``` you can see your models and do whatever you can.
+11. create some dummy data in the data base and try to get the data ( access the data using the api)--> this will mark as the first big step to the project. 
