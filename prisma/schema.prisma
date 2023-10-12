@@ -10,7 +10,8 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// apps
+// apps 
+// note the category slug is actually unique ; suppose oil : there must be different kind of oil listed in the oil category 
 model Category {
   id        String    @id @default(cuid())
   createdAt DateTime  @default(now())
