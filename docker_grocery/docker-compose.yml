@@ -22,7 +22,7 @@ services:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL} # Replace with your email ${PGADMIN_DEFAULT_EMAIL}
       PGADMIN_DEFAULT_PASSWORD:  ${PGADMIN_DEFAULT_PASSWORD} # Replace with your password ${PGADMIN_DEFAULT_PASSWORD}
     ports:
-      - "8080:80"
+      - "8080:80"   # port 8080 on my computer 
 
 volumes:
   grocery-postgres-data:
