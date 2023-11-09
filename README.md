@@ -44,4 +44,6 @@ bun dev
 8. after doing so use ``` npx prisma migrate dev ```
 9. note the env file should be exactly ``` .env ```
 10. now use the ``` npx prisma studio ``` you can see your models and do whatever you can.
-11. create some dummy data in the data base and try to get the data ( access the data using the api)--> this will mark as the first big step to the project. 
+11. create some dummy data in the data base and try to get the data ( access the data using the api)--> this will mark as the first big step to the project.
+12. similarly create the products , oders api routes but before that u need to make another folder for the connection to the prisma so that you don't write the same thing over and over again it causes a problem , the details are given in the docs.( do it from the docs )
+13. The above is done by creating a " singleton pattern". A "singleton" pattern is used to create and manage a single instance of the PrismaClient. A singleton ensures that there is only one instance of a particular class or object created and shared throughout the application's lifecycle. It's often used to manage resources efficiently and avoid unnecessary instantiation of objects.
