@@ -15,7 +15,7 @@ export const GET = async (req:NextRequest) => {
 
   try {
     
-    // trial 3  -> makes a shallow copy , if the category is presend spread the catslog as  cat(shallow) if not make the is featured true(shallow)
+    // trial 3  -> makes a shallow copy , if the category is present(cat) spread the catslog as  cat(shallow) if not make the is featured true(shallow)
     const products = await prisma.product.findMany({
         where: {
             ...(cat ? { catSlug: cat } : { isFeatured: true }),
