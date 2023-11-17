@@ -50,3 +50,5 @@ bun dev
 14. Building the product api is a tricky part , if u read the trial 2 and trial 3 then u will understand that u hit the end point ```api/product``` you will only get the product which is featured (basically the sponsors) and to get the specific product u need to hit the end point ```/api/products?cat=oil``` then only u will get all the products that are listed in the category.( if u do not know this the ? is just the start of the query string , just ask the chat gpt).
 15. now that all the basic things works just fine u can add the products to your db using the prisma and can successfylly as u wanted now we have to move to the next step that is to add the product delete the product and so on.
 16. Therefore we need an authentication, here we will be using the ``` next auth ``` role based authentication.
+17. install the ``` next auth``` and then go to the configuration , initialization  in the docs there you can find the route handlers which is best for the app directory.
+18. now set up the o auth of the next js from the docs and go to the google cloud console and create a new project and add your credentials.
