@@ -51,4 +51,9 @@ bun dev
 15. now that all the basic things works just fine u can add the products to your db using the prisma and can successfylly as u wanted now we have to move to the next step that is to add the product delete the product and so on.
 16. Therefore we need an authentication, here we will be using the ``` next auth ``` role based authentication.
 17. install the ``` next auth``` and then go to the configuration , initialization  in the docs there you can find the route handlers which is best for the app directory.
-18. now set up the o auth of the next js from the docs and go to the google cloud console and create a new project and add your credentials.
+18. now set up the o auth of the next js from the docs and go to the ```google cloud console``` and create a new project and add your credentials.
+19. Now for the front end validation of the session we use the ``` useSession ``` hook provided by the next auth.( i will do it after the back end ).
+20. to get the session inside the server i use the ``` getServerSession() ``` which is recommended by the next auth.
+21. now we want the authenticated person to access the database for this the next auth provides us with the ``` adapters ``` . Here I am using the prisma so it is prisma adapter ``` npm i @next-auth/prisma-adapter```. Search in the stack overflow what are the adapters it will give a clear view.
+22. now add the  adapter to the auth and copy paste the schema from the docs to the prisma model.( mainly the account session  user and verification)
+23. first ensure that the docker is running and you are connected to the db, then do ``` npx prisma migrate dev ``` as you have changed your prisma schema.
