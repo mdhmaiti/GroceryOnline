@@ -56,4 +56,4 @@ bun dev
 20. to get the session inside the server i use the ``` getServerSession() ``` which is recommended by the next auth.
 21. now we want the authenticated person to access the database for this the next auth provides us with the ``` adapters ``` . Here I am using the prisma so it is prisma adapter ``` npm i @next-auth/prisma-adapter```. Search in the stack overflow what are the adapters it will give a clear view.
 22. now add the  adapter to the auth and copy paste the schema from the docs to the prisma model.( mainly the account session  user and verification)
-23. first ensure that the docker is running and you are connected to the db, then do ``` npx prisma migrate dev ``` as you have changed your prisma schema.
+23. first ensure that the docker is running and you are connected to the db, then do ``` npx prisma migrate dev ``` as you have changed your prisma schema. now u u can ckeck if by ``` npx prisma studio ``` if everything is added.
