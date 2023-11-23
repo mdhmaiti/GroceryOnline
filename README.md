@@ -57,3 +57,5 @@ bun dev
 21. now we want the authenticated person to access the database for this the next auth provides us with the ``` adapters ``` . Here I am using the prisma so it is prisma adapter ``` npm i @next-auth/prisma-adapter```. Search in the stack overflow what are the adapters it will give a clear view.
 22. now add the  adapter to the auth and copy paste the schema from the docs to the prisma model.( mainly the account session  user and verification)
 23. first ensure that the docker is running and you are connected to the db, then do ``` npx prisma migrate dev ``` as you have changed your prisma schema. now u u can ckeck if by ``` npx prisma studio ``` if everything is added.
+24. add the role based auth system and how to implement this is documented in the auth section 
+25. now before we proceed futher with the order api i will connect the order and the user in the schema which i previously left.

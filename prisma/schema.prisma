@@ -39,7 +39,7 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-// i specifically added the isAdmin but the rest is copied from the docs
+// i specifically added the isAdmin but the rest is copied from the docs , a user may have multiple orders
 model User {
   id            String    @id @default(cuid())
   name          String?
@@ -49,6 +49,7 @@ model User {
   accounts      Account[]
   isAdmin       Boolean @default(false)
   sessions      Session[]
+  Order         Order[]
 }
 
 model VerificationToken {
@@ -85,7 +86,7 @@ model Product {
   catSlug    String
 }
 
-// the order will be linked to the user later after we create the auth for now just create a migration model
+// the order will be linked to the user later after we create the auth for now just create a migration model,, each order hust have ther user
 model Order {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
@@ -93,6 +94,7 @@ model Order {
   products  Json[]
   status    String
   intent_id String?  @unique
-  
+  user      User     @relation(fields: [userEmail], references: [email])
+  userEmail String
  
 }
