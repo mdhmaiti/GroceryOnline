@@ -58,4 +58,5 @@ bun dev
 22. now add the  adapter to the auth and copy paste the schema from the docs to the prisma model.( mainly the account session  user and verification)
 23. first ensure that the docker is running and you are connected to the db, then do ``` npx prisma migrate dev ``` as you have changed your prisma schema. now u u can ckeck if by ``` npx prisma studio ``` if everything is added.
 24. add the role based auth system and how to implement this is documented in the auth section 
-25. now before we proceed futher with the order api i will connect the order and the user in the schema which i previously left.
+25. now before we proceed futher with the order api i will connect the order and the user in the schema which i previously left.I will connect the user to the order via the email u can also use the user id .
+26. now there are somes basic things left that is the creation and delete of the products and the orders and finally integrating the payment api.
