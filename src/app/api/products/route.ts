@@ -1,4 +1,5 @@
 
+import { getAuthSession } from "@/utils/auth";
 import prisma from "@/utils/db";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -29,3 +30,28 @@ export const GET = async (req:NextRequest) => {
     });
   }
 };
+
+// post the product to the db if he is an admin
+export const POST = async(req:NextRequest)=>{
+  //check if the user is authenticated and is an admin
+  const session = await getAuthSession();
+  if(session?.user.isAdmin){
+    try {
+      // get the body
+      const body = await req.json();
+      const product = await prisma.product.create({
+        data:body,
+      });
+      return  new NextResponse(JSON.stringify(product), { status: 201 });
+      
+    } catch (error) {
+      console.log(error);
+      return new NextResponse(JSON.stringify("product adding failed "));
+      
+    }
+
+  }
+  else{
+    return new NextResponse(JSON.stringify({message:" the user is not an admin"}))
+  }
+}
