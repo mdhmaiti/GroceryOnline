@@ -34,6 +34,8 @@ bun dev
 
 ## Steps to build this whole thing
 
+## BACKEND
+
 1. draw a model in your copy
 2. create the api folder in the app directory and create the categories first beacuse the categories will be linked to the product then the product will be linked to use user .
 3. install the prisma orm from the docs, install the prisma client for the crud operations. You can install the prisma client at the begining there is no problem just sync it with the prisma generate later.
@@ -50,14 +52,19 @@ bun dev
 14. Building the product api is a tricky part , if u read the trial 2 and trial 3 then u will understand that u hit the end point ```api/product``` you will only get the product which is featured (basically the sponsors) and to get the specific product u need to hit the end point ```/api/products?cat=oil``` then only u will get all the products that are listed in the category.( if u do not know this the ? is just the start of the query string , just ask the chat gpt).
 15. now that all the basic things works just fine u can add the products to your db using the prisma and can successfylly as u wanted now we have to move to the next step that is to add the product delete the product and so on.
 16. Therefore we need an authentication, here we will be using the ``` next auth ``` role based authentication.
-17. install the ``` next auth``` and then go to the configuration , initialization  in the docs there you can find the route handlers which is best for the app directory.
+17. install the ```next auth``` and then go to the configuration , initialization  in the docs there you can find the route handlers which is best for the app directory.
 18. now set up the o auth of the next js from the docs and go to the ```google cloud console``` and create a new project and add your credentials.
 19. Now for the front end validation of the session we use the ``` useSession ``` hook provided by the next auth.( i will do it after the back end ).
 20. to get the session inside the server i use the ``` getServerSession() ``` which is recommended by the next auth.
-21. now we want the authenticated person to access the database for this the next auth provides us with the ``` adapters ``` . Here I am using the prisma so it is prisma adapter ``` npm i @next-auth/prisma-adapter```. Search in the stack overflow what are the adapters it will give a clear view.
+21. now we want the authenticated person to access the database for this the next auth provides us with the ``` adapters ``` . Here I am using the prisma so it is prisma adapter ```npm i @next-auth/prisma-adapter```. Search in the stack overflow what are the adapters it will give a clear view.
 22. now add the  adapter to the auth and copy paste the schema from the docs to the prisma model.( mainly the account session  user and verification)
 23. first ensure that the docker is running and you are connected to the db, then do ``` npx prisma migrate dev ``` as you have changed your prisma schema. now u u can ckeck if by ``` npx prisma studio ``` if everything is added.
-24. add the role based auth system and how to implement this is documented in the auth section 
+24. add the role based auth system and how to implement this is documented in the auth section
 25. now before we proceed futher with the order api i will connect the order and the user in the schema which i previously left.I will connect the user to the order via the email u can also use the user id .
 26. now there are somes basic things left that is the creation and delete of the products and the orders and finally integrating the payment api.
-27. data flow from the order to the payments: first add the products to the cart(front end part), then click on the check out button , it triggers the post method and hits the api of the orders route and from the api we get the orderId. From there we will head to the payment page, which will trigger the api and aslo the stripe server via the ``` intent id and the order id``` . now there will be two options success and failure. If it is success just update update the order status to preparing or something and if failed just say it failed ,, this response will be shown in the order page. 
+27. data flow from the order to the payments: first add the products to the cart(front end part), then click on the check out button , it triggers the post method and hits the api of the orders route and from the api we get the orderId. From there we will head to the payment page, which will trigger the api and aslo the stripe server via the ```intent id and the order id``` . now there will be two options success and failure. If it is success just update update the order status to preparing or something and if failed just say it failed ,, this response will be shown in the order page.
+28. back end ```stripe @stripe/stripe-js```  front end ```@stripe/react-stripe-js```
+
+----------------------------------------------------------
+
+## FRONTEND
