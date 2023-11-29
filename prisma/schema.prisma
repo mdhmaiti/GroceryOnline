@@ -50,6 +50,7 @@ model User {
   isAdmin       Boolean @default(false)
   sessions      Session[]
   Order         Order[]
+  Product       Product[]
 }
 
 model VerificationToken {
@@ -84,6 +85,9 @@ model Product {
   options    Json[]
   category   Category @relation(fields: [catSlug], references: [slug])
   catSlug    String
+  user       User     @relation(fields: [userEmail], references: [email])
+  userEmail  String
+
 }
 
 // the order will be linked to the user later after we create the auth for now just create a migration model,, each order hust have ther user

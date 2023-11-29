@@ -35,23 +35,71 @@ export const GET = async (req:NextRequest) => {
 export const POST = async(req:NextRequest)=>{
   //check if the user is authenticated and is an admin
   const session = await getAuthSession();
+  console.log("Session:", session);
+
+  
   if(session?.user.isAdmin){
     try {
-      // get the body
+      // get the body and the connect is necessary ; 
+      // note in the front end you must have a user email which will be auto filled by the session email
+      // after auto filling the email the api is triggered 
       const body = await req.json();
+      const userEmail = session?.user.email;
+      
       const product = await prisma.product.create({
-        data:body,
-      });
+        data: {
+          ...body,
+          user: {
+            connect: { email: userEmail },
+          },
+      }});
       return  new NextResponse(JSON.stringify(product), { status: 201 });
       
     } catch (error) {
       console.log(error);
-      return new NextResponse(JSON.stringify("product adding failed "));
+      return new NextResponse(JSON.stringify("product adding failed "),{status:500});
       
     }
 
   }
   else{
-    return new NextResponse(JSON.stringify({message:" the user is not an admin"}))
+    return new NextResponse(JSON.stringify({message:" the user is not an admin or session is not found"}),{status:400})
   }
 }
+
+// post the product to the db if he is an admin
+
+// {
+//   "title": "lemonaaxxx",
+//   "desc": "fresh",
+//   "price": 10,
+//   "catSlug": "fruits",
+//   "userEmail" : "user1@gmail.com"
+  
+// }
+
+// export const POST = async(req:NextRequest)=>{
+//   //check if the user is authenticated and is an admin
+//   const session = await getAuthSession();
+//   console.log("Session:", session);
+
+  
+ 
+//     try {
+//       // get the body
+//       const body = await req.json();
+      
+      
+//       const product = await prisma.product.create({
+//         data: body,
+//       });
+//       return  new NextResponse(JSON.stringify(product), { status: 201 });
+      
+//     } catch (error) {
+//       console.log(error);
+//       return new NextResponse(JSON.stringify("product adding failed "),{status:500});
+      
+//     }
+
+//   }
+  
