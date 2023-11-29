@@ -68,6 +68,7 @@ export const POST = async(req:NextRequest)=>{
 }
 
 // post the product to the db if he is an admin
+// it is working perfectlyfine in the postman , but the above code does not have the session so it will not work but after client side completion there will be no problem
 
 // {
 //   "title": "lemonaaxxx",
