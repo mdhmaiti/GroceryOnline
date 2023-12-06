@@ -68,3 +68,5 @@ bun dev
 ----------------------------------------------------------
 
 ## FRONTEND
+
+1. The home page should have a landing page which only consist of a landing page and a sign in button and ofcourse some image of the products
