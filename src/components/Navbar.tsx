@@ -16,7 +16,7 @@ const navItems = [
 const Navbar = () => {
  
   return (
-    <nav className="bg-slate-100 p-4 shadow-xl">
+    <nav className="bg-green-700 p-3 shadow-xl">
       <div className=" flex justify-between items-center">
         <div>
           <Link href="/">Logo</Link>
@@ -24,7 +24,7 @@ const Navbar = () => {
         <div className="hidden md:flex space-x-4">
 
         {navItems.map((item) => (
-          <Link
+          <Link className=" text-slate-100 text-lg font-medium "
             href={item.url}
             key={item.id}
             

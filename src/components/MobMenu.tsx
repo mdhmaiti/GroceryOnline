@@ -25,18 +25,20 @@ const MobMenu = () => {
       
       <div
         className={
-          `fixed inset-y-0 left-0 bg-slate-100 flex flex-col gap-4 items-center w-1/2 z-50 transform transition-transform ease-in-out duration-500 ${
+          `fixed inset-y-0 left-0 py-10 bg-gray-900  backdrop-blur-md bg-opacity-75 shadow-lg flex flex-col gap-4 items-center w-3/5 z-50 transform transition-transform ease-in-out duration-500 ${
             isMobMenuOpen ? "translate-x-0" : "-translate-x-full"
           }`
         }
       >
         {navItems.map((item) => (
-          <Link
+          <Link className="py-1 text-slate-100 text-lg font-medium  "
             href={item.url}
             key={item.id}
             onClick={() => setMobMenuOpen(false)}
           >
             {item.title}
+           
+            
           </Link>
         ))}
       </div>
