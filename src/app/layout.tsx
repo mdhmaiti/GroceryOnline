@@ -21,15 +21,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <AuthProvider>
-          <div className="flex flex-col justify-between  w-full h-screen py-2 ">
-            <div className=" ">
-              <Navbar />
-            </div>
-            
-            <div className="flex-grow">
-              {children}
-            </div>
-           
+          <div className="flex flex-col justify-between  w-full h-screen">
+            <Navbar />
+
+            <div className="flex-grow">{children}</div>
+
             <Footer />
           </div>
         </AuthProvider>
