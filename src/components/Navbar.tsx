@@ -4,8 +4,14 @@ import Link from "next/link";
 import MobMenu from "./MobMenu";
 import { Button } from "./ui/button";
 import { ShoppingCart, ShoppingBag, Home, Book } from "lucide-react";
+import Image from "next/image";
+import { Pacifico } from "next/font/google";
 
 
+const pacifico = Pacifico({
+  subsets: ["latin"],
+  weight: "400"
+});
 
 const navItems = [
   { id: 1, title: "Home", url: "/" },
@@ -16,40 +22,46 @@ const navItems = [
 ];
 
 const Navbar = () => {
- 
   return (
-    <nav className="bg-green-600 p-3 ">
-      <div className=" flex justify-between items-center">
+    <nav className="bg-green-600 p-3   ">
+      <div className=" flex justify-between items-center ">
         <div>
-          <Link href="/">Logo</Link>
+          <Link href="/" className="flex flex-row  items-center space-x-2">
+            <Image
+              className="rounded-full "
+              src="/MedhaPersonalLogo.png"
+              height={40}
+              width={40}
+              priority={true}
+              alt="Logo"
+            />
+            <span className={`text-slate-100 text-xl ${pacifico.className}`}>Grocery online</span>
+          </Link>
         </div>
         <div className="hidden md:flex space-x-4">
-
-        {navItems.map((item) => (
-          <Link className="text-slate-100 text-lg font-medium  "
-            href={item.url}
-            key={item.id}
-            
-          >
-           <div className="flex flex-row  justify-center items-center">
-              {item.title === "Cart" && <ShoppingCart />}
-              {item.title === "Shop" && <ShoppingBag />}
-              {item.title === "Home" && <Home />} 
-              {item.title === "About" && <Book />}
-              <Button
-                className="text-slate-100 text-xl font-medium "
-                variant="ghost"
-              >
-                {item.title}
-              </Button>
-            </div>
-            
-          </Link>
-        ))}
-          
+          {navItems.map((item) => (
+            <Link
+              className="text-slate-100 text-lg font-medium  "
+              href={item.url}
+              key={item.id}
+            >
+              <div className="flex flex-row  justify-center items-center">
+                {item.title === "Cart" && <ShoppingCart />}
+                {item.title === "Shop" && <ShoppingBag />}
+                {item.title === "Home" && <Home />}
+                {item.title === "About" && <Book />}
+                <Button
+                  className="text-slate-100 text-xl font-medium "
+                  variant="ghost"
+                >
+                  {item.title}
+                </Button>
+              </div>
+            </Link>
+          ))}
         </div>
         <div className="md:hidden  ">
-          <MobMenu/>
+          <MobMenu />
         </div>
       </div>
     </nav>
