@@ -4,7 +4,7 @@ const Home =() =>{
   return(
   <div>
     Hello medhashis
-    <Button variant="outline">Button</Button>
+    <Button >Button</Button>
 
   </div>
   )

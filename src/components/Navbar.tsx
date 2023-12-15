@@ -23,7 +23,7 @@ const navItems = [
 
 const Navbar = () => {
   return (
-    <nav className="bg-green-600 p-3   ">
+    <nav className=" p-3  shadow-md shadow-emerald-500/50  ">
       <div className=" flex justify-between items-center ">
         <div>
           <Link href="/" className="flex flex-row  items-center space-x-2">
@@ -35,13 +35,13 @@ const Navbar = () => {
               priority={true}
               alt="Logo"
             />
-            <span className={`text-slate-100 text-xl ${pacifico.className}`}>Grocery online</span>
+            <span className={` text-xl ${pacifico.className}`}>Grocery online</span>
           </Link>
         </div>
         <div className="hidden md:flex space-x-4">
           {navItems.map((item) => (
             <Link
-              className="text-slate-100 text-lg font-medium  "
+              className=" text-lg font-medium  "
               href={item.url}
               key={item.id}
             >
@@ -51,7 +51,7 @@ const Navbar = () => {
                 {item.title === "Home" && <Home />}
                 {item.title === "About" && <Book />}
                 <Button
-                  className="text-slate-100 text-xl font-medium "
+                  className=" text-xl font-medium "
                   variant="ghost"
                 >
                   {item.title}
