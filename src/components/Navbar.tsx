@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import MobMenu from "./MobMenu";
+import { Button } from "./ui/button";
+import { ShoppingCart, ShoppingBag, Home, Book } from "lucide-react";
 
 
 
@@ -16,7 +18,7 @@ const navItems = [
 const Navbar = () => {
  
   return (
-    <nav className="bg-green-700 p-3 shadow-xl">
+    <nav className="bg-green-600 p-3 ">
       <div className=" flex justify-between items-center">
         <div>
           <Link href="/">Logo</Link>
@@ -24,12 +26,24 @@ const Navbar = () => {
         <div className="hidden md:flex space-x-4">
 
         {navItems.map((item) => (
-          <Link className=" text-slate-100 text-lg font-medium "
+          <Link className="text-slate-100 text-lg font-medium  "
             href={item.url}
             key={item.id}
             
           >
-            {item.title}
+           <div className="flex flex-row  justify-center items-center">
+              {item.title === "Cart" && <ShoppingCart />}
+              {item.title === "Shop" && <ShoppingBag />}
+              {item.title === "Home" && <Home />} 
+              {item.title === "About" && <Book />}
+              <Button
+                className="text-slate-100 text-xl font-medium "
+                variant="ghost"
+              >
+                {item.title}
+              </Button>
+            </div>
+            
           </Link>
         ))}
           

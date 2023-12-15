@@ -2,7 +2,8 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import { Menu, Tally3 } from "lucide-react";
+import { Book, Home, Menu, ShoppingBag, ShoppingCart, Tally3 } from "lucide-react";
+import { Button } from "./ui/button";
 
 const navItems = [
   { id: 1, title: "Home", url: "/" },
@@ -22,30 +23,36 @@ const MobMenu = () => {
       ) : (
         <Tally3 onClick={() => setMobMenuOpen(false)} />
       )}
-      
+
       <div
-        className={
-          `fixed inset-y-0 left-0 py-10 bg-gray-900  backdrop-blur-md bg-opacity-75 shadow-lg flex flex-col gap-4 items-center w-3/5 z-50 transform transition-transform ease-in-out duration-500 ${
-            isMobMenuOpen ? "translate-x-0" : "-translate-x-full"
-          }`
-        }
+        className={`fixed inset-y-0 left-0 py-10 bg-gray-900  backdrop-blur-md bg-opacity-75  flex flex-col gap-4 items-center w-3/5 z-50 transform transition-transform ease-in-out duration-500 ${
+          isMobMenuOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
       >
         {navItems.map((item) => (
-          <Link className="py-1 text-slate-100 text-lg font-medium  "
+          <Link
+            className="py-1 text-slate-100 text-lg font-medium  "
             href={item.url}
             key={item.id}
             onClick={() => setMobMenuOpen(false)}
           >
-            {item.title}
-           
-            
+            <div className="flex flex-row  justify-center items-center">
+              {item.title === "Cart" && <ShoppingCart />}
+              {item.title === "Shop" && <ShoppingBag />}
+              {item.title === "Home" && <Home />} 
+              {item.title === "About" && <Book />}
+              <Button
+                className="text-slate-100 text-xl font-medium "
+                variant="ghost"
+              >
+                {item.title}
+              </Button>
+            </div>
           </Link>
         ))}
       </div>
-      
     </div>
   );
 };
 
 export default MobMenu;
-
