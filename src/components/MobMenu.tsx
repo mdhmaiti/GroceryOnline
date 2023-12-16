@@ -2,7 +2,15 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import { Book, Home, Menu, ShoppingBag, ShoppingCart, Tally3 } from "lucide-react";
+import {
+  Book,
+  Home,
+  Menu,
+  Package,
+  ShoppingBag,
+  ShoppingCart,
+  Tally3,
+} from "lucide-react";
 import { Button } from "./ui/button";
 
 const navItems = [
@@ -12,6 +20,8 @@ const navItems = [
   { id: 4, title: "Cart", url: "/cart" },
   { id: 5, title: "About", url: "/about" },
 ];
+
+const user = false;
 
 const MobMenu = () => {
   const [isMobMenuOpen, setMobMenuOpen] = useState(false);
@@ -36,20 +46,32 @@ const MobMenu = () => {
             key={item.id}
             onClick={() => setMobMenuOpen(false)}
           >
-            <div className="flex flex-row  justify-center items-center">
-              {item.title === "Cart" && <ShoppingCart />}
-              {item.title === "Shop" && <ShoppingBag />}
-              {item.title === "Home" && <Home />} 
-              {item.title === "About" && <Book />}
+            <div className="flex flex-row  justify-center items-center space-x-5">
+              
               <Button
                 className="text-slate-100 text-xl font-medium "
                 variant="ghost"
               >
-                {item.title}
+              {item.title === "Cart" && <ShoppingCart />}
+              {item.title === "Shop" && <ShoppingBag />}
+              {item.title === "Home" && <Home />}
+              {item.title === "About" && <Book/>}
+              {item.title === "Orders" && <Package/> }
+              {item.title}
               </Button>
             </div>
           </Link>
         ))}
+
+      {/* if not user render the sign in button and if user render the sign out */}
+        <Link href={"/"}>
+          <Button
+            className="text-slate-100 text-xl font-medium "
+            variant="ghost"
+          >
+            
+          </Button>
+        </Link>
       </div>
     </div>
   );

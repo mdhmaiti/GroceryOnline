@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import AuthProvider from "../components/AuthProvider";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,15 +21,22 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AuthProvider>
-          <div className="flex flex-col justify-between  w-full h-screen">
-            <Navbar />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {/* <AuthProvider> */}
+            <div className="flex flex-col justify-between  w-full h-screen">
+              <Navbar />
 
-            <div className="flex-grow">{children}</div>
+              <div className="flex-grow">{children}</div>
 
-            <Footer />
-          </div>
-        </AuthProvider>
+              <Footer />
+            </div>
+          {/* </AuthProvider> */}
+        </ThemeProvider>
       </body>
     </html>
   );

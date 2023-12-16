@@ -3,9 +3,11 @@
 import Link from "next/link";
 import MobMenu from "./MobMenu";
 import { Button } from "./ui/button";
-import { ShoppingCart, ShoppingBag, Home, Book } from "lucide-react";
+import { ShoppingCart, ShoppingBag, Home, Book, Package } from "lucide-react";
 import Image from "next/image";
 import { Pacifico } from "next/font/google";
+import { ModeToggle } from "./ui/darkToggle";
+import { AccountButton } from "./ui/accountButton";
 
 
 const pacifico = Pacifico({
@@ -23,9 +25,9 @@ const navItems = [
 
 const Navbar = () => {
   return (
-    <nav className=" p-3  shadow-md shadow-emerald-500/50  ">
+    <nav className=" p-3 ">
       <div className=" flex justify-between items-center ">
-        <div>
+        <div className=" flex flex-row items-center space-x-2 ">
           <Link href="/" className="flex flex-row  items-center space-x-2">
             <Image
               className="rounded-full "
@@ -35,8 +37,10 @@ const Navbar = () => {
               priority={true}
               alt="Logo"
             />
-            <span className={` text-xl ${pacifico.className}`}>Grocery online</span>
+            <span className={` text-xl tracking-widest hover:text-emerald-400 drop-shadow-2xl ${pacifico.className}`}>Grocery online</span>
           </Link>
+          <ModeToggle/>
+          <AccountButton/>
         </div>
         <div className="hidden md:flex space-x-4">
           {navItems.map((item) => (
@@ -45,13 +49,14 @@ const Navbar = () => {
               href={item.url}
               key={item.id}
             >
-              <div className="flex flex-row  justify-center items-center">
+              <div className="flex flex-row  justify-center items-center space-x-5">
                 {item.title === "Cart" && <ShoppingCart />}
                 {item.title === "Shop" && <ShoppingBag />}
                 {item.title === "Home" && <Home />}
                 {item.title === "About" && <Book />}
+                {item.title === "Orders" && <Package/> }
                 <Button
-                  className=" text-xl font-medium "
+                  className=" text-xl font-medium shadow-lg shadow-emerald-500/50 "
                   variant="ghost"
                 >
                   {item.title}
