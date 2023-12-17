@@ -20,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`bg-gradient-to-b from-transparent to-teal-600 ${inter.className}`}>
+      <body className={`bg-gradient-to-b from-transparent to-teal-600  ${inter.className}`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -28,10 +28,10 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {/* <AuthProvider> */}
-            <div className="flex flex-col justify-between  w-full h-screen">
+            <div className="flex flex-col min-h-screen ">
               <Navbar />
 
-              <div className="flex-grow ">{children}</div>
+              <div className="flex-1">{children}</div>
 
               <Footer />
             </div>

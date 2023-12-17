@@ -25,7 +25,7 @@ const navItems = [
 
 const Navbar = () => {
   return (
-    <nav className=" p-8 w-screen">
+    <nav className=" p-10 w-full">
       <div className=" flex justify-between items-center w-full">
         <div className=" flex flex-row items-center space-x-1 w-full ">
           <Link href="/" className="flex flex-row  items-center space-x-1">
