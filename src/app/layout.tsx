@@ -20,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`bg-gradient-to-b from-transparent to-teal-800 ${inter.className}`}>
+      <body className={`bg-gradient-to-b from-transparent to-teal-600 ${inter.className}`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

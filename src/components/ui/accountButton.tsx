@@ -23,7 +23,7 @@ export function AccountButton() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button className="rounded-full" variant="outline">
-          <UserRound />
+          <UserRound className='glow'/>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">

@@ -37,7 +37,7 @@ const Navbar = () => {
               priority={true}
               alt="Logo"
             />
-            <span className={` text-xl tracking-widest hover:text-emerald-400 drop-shadow-2xl ${pacifico.className}`}>Grocery online</span>
+            <span className={` text-xl tracking-widest hover:text-emerald-400 glow ${pacifico.className}`}>Grocery online</span>
           </Link>
           <ModeToggle/>
           <AccountButton/>
@@ -50,11 +50,11 @@ const Navbar = () => {
               key={item.id}
             >
               <div className="flex flex-row  justify-center items-center space-x-5">
-                {item.title === "Cart" && <ShoppingCart />}
-                {item.title === "Shop" && <ShoppingBag />}
-                {item.title === "Home" && <Home />}
-                {item.title === "About" && <Book />}
-                {item.title === "Orders" && <Package/> }
+                {item.title === "Cart" && <ShoppingCart className='glow'/>}
+                {item.title === "Shop" && <ShoppingBag className='glow'/>}
+                {item.title === "Home" && <Home className='glow'/>}
+                {item.title === "About" && <Book className='glow' />}
+                {item.title === "Orders" && <Package className='glow'/> }
                 <Button
                   className=" text-xl font-medium shadow-lg shadow-emerald-500/50 "
                   variant="ghost"

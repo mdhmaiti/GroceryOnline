@@ -1,3 +1,4 @@
+import { Facebook, Instagram, Twitter, Mail } from 'lucide-react';
 import React from 'react';
 
 const Footer = () => {
@@ -27,7 +28,28 @@ const Footer = () => {
       </svg>
 
       {/* Footer with Waves */}
-      <footer className="footer">
+      <footer className="footer flex flex-col items-center justify-center w-full">
+        <div className=' flex flex-row items-center justify-center space-x-2 w-full'>
+        
+        
+        <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" className='glow'>
+        <Facebook />
+      </a>
+      <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" className='glow'>
+        <Instagram />
+      </a>
+      <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer" className='glow'>
+        <Twitter />
+      </a>
+      <a href="https://www.google.com" target="_blank" rel="noopener noreferrer" className='glow'>
+        <Mail />
+      </a>
+
+        </div>
+        <span className='pb-2 text-sm font-medium text-white tracking-widest'>
+          @medhashis
+        </span>
+        
         <div className="waves">
           <div className="wave" id="wave1"></div>
           <div className="wave" id="wave2"></div>
