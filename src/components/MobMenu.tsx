@@ -35,7 +35,7 @@ const MobMenu = () => {
       )}
 
       <div
-        className={`fixed inset-y-0 left-0 py-10 bg-gray-900  backdrop-blur-md bg-opacity-75  flex flex-col gap-4 items-center w-3/5 z-50 transform transition-transform ease-in-out duration-500 ${
+        className={`fixed inset-y-0 left-0 py-10 bg-gray-900  backdrop-blur-md bg-opacity-75  flex flex-col gap-4 items-center w-3/5 z-5000 transform transition-transform ease-in-out duration-500 ${
           isMobMenuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >

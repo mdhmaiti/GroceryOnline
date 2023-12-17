@@ -25,10 +25,10 @@ const navItems = [
 
 const Navbar = () => {
   return (
-    <nav className=" p-3 ">
-      <div className=" flex justify-between items-center ">
-        <div className=" flex flex-row items-center space-x-2 ">
-          <Link href="/" className="flex flex-row  items-center space-x-2">
+    <nav className=" p-8 w-screen">
+      <div className=" flex justify-between items-center w-full">
+        <div className=" flex flex-row items-center space-x-1 w-full ">
+          <Link href="/" className="flex flex-row  items-center space-x-1">
             <Image
               className="rounded-full "
               src="/MedhaPersonalLogo.png"
@@ -42,7 +42,7 @@ const Navbar = () => {
           <ModeToggle/>
           <AccountButton/>
         </div>
-        <div className="hidden md:flex space-x-4">
+        <div className="hidden lg:flex space-x-4">
           {navItems.map((item) => (
             <Link
               className=" text-lg font-medium  "
@@ -65,7 +65,7 @@ const Navbar = () => {
             </Link>
           ))}
         </div>
-        <div className="md:hidden  ">
+        <div className="lg:hidden  ">
           <MobMenu />
         </div>
       </div>
