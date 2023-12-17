@@ -20,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`bg-gradient-to-b from-transparent to-teal-800 ${inter.className}`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -31,7 +31,7 @@ export default function RootLayout({
             <div className="flex flex-col justify-between  w-full h-screen">
               <Navbar />
 
-              <div className="flex-grow">{children}</div>
+              <div className="flex-grow ">{children}</div>
 
               <Footer />
             </div>
