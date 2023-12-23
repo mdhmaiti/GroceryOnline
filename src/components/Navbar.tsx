@@ -25,7 +25,8 @@ const navItems = [
 
 const Navbar = () => {
   return (
-    <nav className=" p-10 w-full">
+    
+    <nav className=" p-5 w-full fixed top-0 left-0 z-40">
       <div className=" flex justify-between items-center w-full">
         <div className=" flex flex-row items-center space-x-1 w-full ">
           <Link href="/" className="flex flex-row  items-center space-x-1">
@@ -40,7 +41,7 @@ const Navbar = () => {
             <span className={` text-xl tracking-widest hover:text-emerald-400 glow ${pacifico.className}`}>Grocery online</span>
           </Link>
           <ModeToggle/>
-          <AccountButton/>
+           <AccountButton />
         </div>
         <div className="hidden lg:flex space-x-4">
           {navItems.map((item) => (

@@ -5,6 +5,7 @@ import AuthProvider from "../components/AuthProvider";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,15 +28,17 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-           <AuthProvider>
+            <AuthProvider> 
             <div className="flex flex-col min-h-screen ">
               <Navbar />
 
-              <div className="flex-1">{children}</div>
-
+              <div className="flex-1"> {children}
+              <Toaster /> </div>
+              
+             
               <Footer />
             </div>
-           </AuthProvider> 
+            </AuthProvider>  
         </ThemeProvider>
       </body>
     </html>

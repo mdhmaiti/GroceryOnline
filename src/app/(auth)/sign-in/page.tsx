@@ -1,19 +1,9 @@
-"use client"
-import { Button } from "@/components/ui/button"
-import { signIn } from "next-auth/react"
+import React from 'react'
 
-
-
-const Signin = () => {
-
-  const handleSignIn = async () => {
-     await signIn('google');
-    // Handle the response if needed
-  };
-
+const page = () => {
   return (
-    <div><Button  onClick={handleSignIn}>Google</Button></div>
+    <div>test page</div>
   )
 }
 
-export default Signin
+export default page
