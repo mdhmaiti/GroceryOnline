@@ -9,7 +9,7 @@ import {
 
 const ItemCard = () => {
   return (
-    <Card>
+    <Card className=" ">
     <CardHeader>
       <CardTitle>Card Title</CardTitle>
       <CardDescription>Card Description</CardDescription>

@@ -1,5 +1,6 @@
 "use client";
 
+// just render the sign in and sign out with the o auth ( bilkul jhamela nhi lene ka )
 import * as React from "react";
 
 import { Button } from "@/components/ui/button";
@@ -33,12 +34,12 @@ export function AccountButton() {
           {/* if there is already a user present show logout, if not show login */}
           {user ? (
             <DropdownMenuRadioItem className="text-sm font-semibold" value="top">
-              Logout
+              Signout
             </DropdownMenuRadioItem>
           ) : (
             <>
               <DropdownMenuRadioItem className="text-sm font-semibold" value="top">
-                Login
+                Signin
               </DropdownMenuRadioItem>
               <DropdownMenuRadioItem className="text-sm font-semibold" value="bottom">
                 SignUp

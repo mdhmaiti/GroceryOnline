@@ -69,4 +69,5 @@ bun dev
 
 ## FRONTEND
 
-1. The home page should have a landing page which only consist of a landing page and a sign in button and ofcourse some image of the products
+1. The home page should have a landing page which only consist of a landing page and a sign in button and ofcourse some image of the products.
+2. at this point i have tested the front end routed and the nav bar of the projects , everything works just fine and it is fully responsive and the animations are great. you can build your own front end but i like this flashy green style .
