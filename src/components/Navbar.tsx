@@ -7,7 +7,7 @@ import { ShoppingCart, ShoppingBag, Home, Book, Package } from "lucide-react";
 import Image from "next/image";
 import { Pacifico } from "next/font/google";
 import { ModeToggle } from "./ui/darkToggle";
-import { AccountButton } from "./ui/accountButton";
+import { AccountButton } from "./accountButton";
 
 
 const pacifico = Pacifico({

@@ -72,6 +72,9 @@ export const authOptions : NextAuthOptions={
           token.isAdmin = userInDb?.isAdmin!;
           return token;
         },
+        redirect() {
+          return '/'
+        },
 
       }
     

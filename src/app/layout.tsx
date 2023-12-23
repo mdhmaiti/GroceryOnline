@@ -27,7 +27,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {/* <AuthProvider> */}
+           <AuthProvider>
             <div className="flex flex-col min-h-screen ">
               <Navbar />
 
@@ -35,7 +35,7 @@ export default function RootLayout({
 
               <Footer />
             </div>
-          {/* </AuthProvider> */}
+           </AuthProvider> 
         </ThemeProvider>
       </body>
     </html>
