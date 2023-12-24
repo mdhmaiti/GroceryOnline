@@ -44,6 +44,7 @@ export function AccountButton() {
           title: "Sign in successfull",
         });
       } catch (error) {
+        console.log(error)
         toast({
           variant: "destructive",
           title: "Uh oh! Something went wrong.",

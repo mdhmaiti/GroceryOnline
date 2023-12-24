@@ -1,16 +1,15 @@
-"use client"
-import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
+
+import { getAuthSession } from '@/utils/auth';
+import { redirect } from 'next/navigation';
 import React from 'react'
 
-const Cart = () => {
+const Cart = async() => {
 
-  const { data: session, status } = useSession()
-  const router = useRouter()
-  
-  if(status=="unauthenticated"){
-    router.push('/sign-in')
-    
+  const session = await getAuthSession();
+
+  // this is the correct way of dynamic navigation and the next auth session do not use the use router hook 
+  if (!session) {
+    redirect("/sign-in");
   }
   return (
     <div>Cart</div>
