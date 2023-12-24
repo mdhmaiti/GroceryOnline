@@ -1,4 +1,5 @@
-"use client"
+
+import HandleSignIn from "@/components/HandleSignIn"
 import GoogleIcon from "@/components/ui/GoogleIcon"
 import { Button } from "@/components/ui/button"
 import {
@@ -21,10 +22,7 @@ return (
     
   </CardHeader>
   <CardContent>
-  <Button className="flex flex-row items-center justify-center p-2 py-3 gap-4  h-fit w-full shadow-md bg-zinc-950  hover:bg-zinc-800   " variant={'ghost'}  onClick={async ()=> await signIn('google')}>
-    <GoogleIcon Height={"40"} Width={"40"}/>
-    <p className="font-bold font-2xl  text-zinc-100">Sign-in with Google</p>
-  </Button>
+    <HandleSignIn/>
   </CardContent>
   
   <CardFooter className="">
