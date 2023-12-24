@@ -1,9 +1,20 @@
+"use client"
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 
-const page = () => {
+const Cart = () => {
+
+  const { data: session, status } = useSession()
+  const router = useRouter()
+  
+  if(status=="unauthenticated"){
+    router.push('/sign-in')
+    
+  }
   return (
-    <div>page</div>
+    <div>Cart</div>
   )
 }
 
-export default page
+export default Cart
