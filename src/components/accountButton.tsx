@@ -32,6 +32,7 @@ export function AccountButton() {
 
     // Handle the response if needed
   };
+  
   const handleSignOut = async () => {
     await signOut();
   };

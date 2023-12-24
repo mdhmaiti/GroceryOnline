@@ -33,9 +33,9 @@ export default function RootLayout({
               <Navbar />
 
               <div className="flex-1"> {children}
-              <Toaster /> </div>
+               </div>
               
-             
+               <Toaster />
               <Footer />
             </div>
             </AuthProvider>  

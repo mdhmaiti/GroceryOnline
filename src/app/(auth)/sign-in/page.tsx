@@ -1,9 +1,39 @@
-import React from 'react'
+"use client"
+import GoogleIcon from "@/components/ui/GoogleIcon"
+import { Button } from "@/components/ui/button"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { signIn } from "next-auth/react"
 
-const page = () => {
-  return (
-    <div>test page i will add a separate sign in page later , for now sign in and sign out from the account button </div>
-  )
+const  Signin = () => {
+return (
+  <div className= " flex flex-col justify-center items-center min-h-screen">
+    <Card className="w-72 bg-transparent shadow-lg shadow-slate-200 backdrop-blur-sm ">
+  <CardHeader>
+    <CardTitle className="mx-auto">Please sign in to continue.</CardTitle>
+    
+  </CardHeader>
+  <CardContent>
+  <Button className="flex flex-row items-center justify-center p-2 py-3 gap-4  h-fit w-full shadow-md bg-zinc-950  hover:bg-zinc-800   " variant={'ghost'}  onClick={async ()=> await signIn('google')}>
+    <GoogleIcon Height={"40"} Width={"40"}/>
+    <p className="font-bold font-2xl  text-zinc-100">Sign-in with Google</p>
+  </Button>
+  </CardContent>
+  
+  <CardFooter className="">
+    <p className=" text-sm">By signing in, users agree to abide by the terms of service and privacy policy. </p>
+  </CardFooter>
+</Card>
+
+  </div>
+  
+)
 }
 
-export default page
+export default Signin
