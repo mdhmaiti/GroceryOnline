@@ -20,6 +20,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { useToast } from "./ui/use-toast";
 import { useEffect } from "react";
 import { ToastAction } from "./ui/toast";
+import GoogleIcon from "./ui/GoogleIcon";
 
 export function AccountButton() {
   const { data: session, status } = useSession();
@@ -67,9 +68,7 @@ export function AccountButton() {
           {/* if there is already a user present show logout, if not show login */}
           {status === "authenticated" && session ? (
             <DropdownMenuRadioItem
-              className="
-                  
-            text-sm font-semibold"
+            className="flex flex-row items-center justify-center p-2 gap-2"
               onClick={() => {
                 try {
                   handleSignOut();
@@ -89,18 +88,19 @@ export function AccountButton() {
               }}
               value="top"
             >
-              Google Sign-Out
+             <GoogleIcon Height={"30"} Width={"30"}/>
+                <p className="text-md font-bold">Google Sign-out</p>
             </DropdownMenuRadioItem>
           ) : (
             <>
               <DropdownMenuRadioItem
-                className="text-sm font-semibold"
+                className="flex flex-row items-center justify-center p-2 gap-2"
                 onClick={() => {
                   handleSignIn();
                 }}
                 value="top"
-              >
-                Google Sign-in
+              > <GoogleIcon Height={"30"} Width={"30"}/>
+                <p className="text-md font-bold ">Google Sign-in</p>
               </DropdownMenuRadioItem>
             </>
           )}

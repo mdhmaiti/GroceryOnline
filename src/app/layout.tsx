@@ -21,7 +21,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`bg-gradient-to-b from-transparent to-teal-600  ${inter.className}`}>
+      <body className={` ${inter.className}`}>
+        <div className=" min-w-full h-72 -z-50 absolute inset-0 bg-gradient-to-b from-cyan-500 to-transparent opacity-50 blur-2xl"/ >
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -29,14 +30,16 @@ export default function RootLayout({
           disableTransitionOnChange
         >
             <AuthProvider> 
-            <div className="flex flex-col min-h-screen ">
+            <div className="flex flex-col min-h-screen relative">
               <Navbar />
 
               <div className="flex-1"> {children}
                </div>
               
                <Toaster />
+              
               <Footer />
+              <div className="min-w-full h-72 -z-50 absolute bottom-10 bg-gradient-to-b to-cyan-500 from-transparent opacity-50 blur-2xl" />
             </div>
             </AuthProvider>  
         </ThemeProvider>

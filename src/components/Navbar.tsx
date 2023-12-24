@@ -57,7 +57,7 @@ const Navbar = () => {
                 {item.title === "About" && <Book className='glow' />}
                 {item.title === "Orders" && <Package className='glow'/> }
                 <Button
-                  className=" text-xl font-medium shadow-lg shadow-emerald-500/50 "
+                  className=" text-xl font-medium  backdrop-blur-lg "
                   variant="ghost"
                 >
                   {item.title}
