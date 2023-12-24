@@ -41,7 +41,7 @@ export function AccountButton() {
     if (status === "authenticated") {
       try {
         toast({
-          description: "Sign in successfull",
+          title: "Sign in successfull",
         });
       } catch (error) {
         toast({
@@ -73,7 +73,7 @@ export function AccountButton() {
                 try {
                   handleSignOut();
                   toast({
-                    description: " sign-out successful",
+                    title: " sign-out successful",
                   });
                 } catch (error) {
                   toast({

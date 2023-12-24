@@ -13,8 +13,9 @@ import { signIn } from "next-auth/react"
 
 const  Signin = () => {
 return (
-  <div className= " flex flex-col justify-center items-center min-h-screen">
-    <Card className="w-72 bg-transparent shadow-lg shadow-slate-200 backdrop-blur-sm ">
+  <div className= " flex flex-col justify-center items-center min-h-screen ">
+    <Card className="w-72 bg-transparent shadow-lg shadow-slate-200  relative ">
+      <div className=" absolute inset-0 bg-gradient-to-b from-sky-800 to-transparent  opacity-60 blur-sm  rounded-lg -z-10"/>
   <CardHeader>
     <CardTitle className="mx-auto">Please sign in to continue.</CardTitle>
     
