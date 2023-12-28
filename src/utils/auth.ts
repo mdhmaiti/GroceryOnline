@@ -13,23 +13,24 @@ import prisma from "./db";
 
 
 //- give the interface whatever youlike
-declare module "next-auth" {
-  interface Session {
-    user:User & {
-      isAdmin:Boolean;
-    }
-  }
-}
+// declare module "next-auth" {
+//   interface Session {
+//     user:User & {
+//       isAdmin:Boolean;
+//     }
+//   }
+// }
 
-//- for the tokens is admin prop declaration
-declare module "next-auth/jwt" {
-  interface JWT {
+// //- for the tokens is admin prop declaration
+// declare module "next-auth/jwt" {
+//   interface JWT {
     
-      isAdmin:Boolean;
+//       isAdmin:Boolean;
     
-  }
-}
+//   }
+// }
 
+// moving the above file to the types folder 
 
 export const authOptions : NextAuthOptions={
   adapter: PrismaAdapter(prisma),
@@ -52,6 +53,7 @@ export const authOptions : NextAuthOptions={
 
             //if the token consist of the admin add it to the user field of the current session(note the is admin field of the token is still empty)
             session.user.isAdmin= token.isAdmin 
+            session.user.email = token.email
           }
           return session
         },
@@ -81,5 +83,3 @@ export const authOptions : NextAuthOptions={
 }
 // now get the server session for each auth options 
 export const getAuthSession = ()=> getServerSession(authOptions);
-
-

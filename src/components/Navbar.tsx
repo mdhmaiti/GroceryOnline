@@ -21,6 +21,7 @@ const navItems = [
   { id: 3, title: "Orders", url: "/orders" },
   { id: 4, title: "Cart", url: "/cart" },
   { id: 5, title: "About", url: "/about" },
+  { id: 5, title: "add", url: "/addProduct" },
 ];
 
 const Navbar = () => {

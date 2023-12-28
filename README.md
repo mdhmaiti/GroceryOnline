@@ -72,5 +72,5 @@ bun dev
 1. The home page should have a landing page which only consist of a landing page and a sign in button and ofcourse some image of the products.
 2. at this point i have tested the front end routed and the nav bar of the projects , everything works just fine and it is fully responsive and the animations are great. you can build your own front end but i like this flashy green style .
 3. now build the front end of the sign up page and intrigate the backend of the next auth that you have built previously, but for now i am just using an account button and a drop down menu for the sign in and sign out .
-4. limit the use of the use router and the use session hook of the next js and next auth instead use the redirect and the getserversession other wise it will create water fall effect which is not the correct way to use the next js .
+4. in the client  use the use router and the use session hook of the next js and next auth or use the redirect and the {data:session } and not the status other wise it will create water fall effect which is not the correct way to use the next js . The status option is a little slow 
 
