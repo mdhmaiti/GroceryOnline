@@ -10,10 +10,10 @@ import { z } from "zod";
     }),
     desc: z.string(),
     img: z.string().optional(),
-    price: z.number(),
+    price: z.number().positive(),
     isFeatured: z.boolean().default(false),
     catSlug: z.string(),
-    userEmail: z.string(),
+    userEmail: z.string().email(),
     options: z.array(
         z.object({
           title: z.string(),

@@ -1,6 +1,7 @@
+// not working
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import * as z from "zod";
 
 import axios, { AxiosResponse } from "axios";
@@ -25,7 +26,7 @@ import { getAuthSession } from "@/utils/auth";
 type FormData = z.infer<typeof productSchema>;
 
 export function AddPdt() {
-  const form = useForm<FormData>({
+  const form = useForm({
     resolver: zodResolver(productSchema),
   });
 
@@ -42,35 +43,26 @@ export function AddPdt() {
     },
   });
 
-  const onSubmit = async (formData: FormData) => {
+  const onSubmit = async (formData:FieldValues) => {
     const session = await getSession();
 
     if (session?.user.isAdmin) {
       try {
         const userEmail = session?.user.email;
-        
-
-       
 
         // Assuming /api/products is your API endpoint for adding products
-        const response = await axios.post("/api/products", {
+        const response = await axios.post("http://localhost:3000/api/products", {
           ...formData,
-         
-          
-          user: {
-            connect: { email: userEmail },
-          },
+
         });
 
         if (response.status === 201) {
           // Product added successfully
           console.log("Product added successfully:", response.data);
-          
 
           // Reset the form
           form.reset();
         } else {
-        
           console.log("Product adding failed:", response.data);
         }
       } catch (error) {
@@ -80,11 +72,11 @@ export function AddPdt() {
       console.log("User is not an admin or session not found");
     }
   };
-  const {data:session} = useSession();
+  const { data: session } = useSession();
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(console.log)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
           name="title"
@@ -134,20 +126,16 @@ export function AddPdt() {
             <FormItem>
               <FormLabel>Price</FormLabel>
               <FormControl>
-              <Input
-          type="number"
-          placeholder="Price"
-          
-          {...field}
-           // Ensure the value is a number
-        />
-    
+                <Input
+                  placeholder="Price"
+                  {...field}
+                  // Ensure the value is a number
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        
 
         <FormField
           control={form.control}
@@ -159,9 +147,7 @@ export function AddPdt() {
                 <select {...field}>
                   {categories?.map(
                     (category: { slug: string; title: string }) => (
-                      <option key={category.slug} >
-                        {category.title}
-                      </option>
+                      <option key={category.slug}>{category.title}</option>
                     )
                   )}
                 </select>
@@ -171,19 +157,24 @@ export function AddPdt() {
           )}
         />
         <FormField
-  control={form.control}
-  name="userEmail"
-  render={({ field }) => (
-    <FormItem>
-      <FormLabel>User Email</FormLabel>
-      <FormControl>
-        {/* Set the value to the current user's email */}
-        <Input placeholder="User Email" {...field} value={session?.user.email!}  readOnly />
-      </FormControl>
-      <FormMessage />
-    </FormItem>
-  )}
-/>
+          control={form.control}
+          name="userEmail"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>User Email</FormLabel>
+              <FormControl>
+                {/* Set the value to the current user's email */}
+                <Input
+                  placeholder="User Email"
+                  {...field}
+                  value={session?.user.email!}
+                  readOnly
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
         <Button type="submit">Submit</Button>
       </form>

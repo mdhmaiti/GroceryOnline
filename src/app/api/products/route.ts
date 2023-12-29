@@ -44,14 +44,12 @@ export const POST = async(req:NextRequest)=>{
       // note in the front end you must have a user email which will be auto filled by the session email
       // after auto filling the email the api is triggered 
       const body = await req.json();
-      const userEmail = session?.user.email;
+      // const userEmail = session?.user.email;
       
       const product = await prisma.product.create({
         data: {
           ...body,
-          user: {
-            connect: { email: userEmail },
-          },
+          
       }});
       return  new NextResponse(JSON.stringify(product), { status: 201 });
       
