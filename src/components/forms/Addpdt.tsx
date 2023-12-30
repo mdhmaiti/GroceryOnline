@@ -18,62 +18,67 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { categorySchema, productSchema } from "@/types/types";
+import {useQuery } from "@tanstack/react-query";
+import {  productSchema } from "@/types/types";
 import { getSession, useSession } from "next-auth/react";
-import { getAuthSession } from "@/utils/auth";
+
+import React from "react";
 
 type FormData = z.infer<typeof productSchema>;
-
+type category = {
+  title: string;
+  slug: string;
+};
 export function AddPdt() {
   const form = useForm({
     resolver: zodResolver(productSchema),
   });
 
-  const queryClient = useQueryClient();
+  
 
   // React Query Mutation for adding a product
 
-  // React Query Query for fetching categories
-  const { data: categories } = useQuery({
+  const { isLoading, error, data:categories } = useQuery({
     queryKey: ["categories"],
-    queryFn: async () => {
-      const response = await axios.get("/api/categories");
-      return response.data;
-    },
+    queryFn: () =>
+      fetch("http://localhost:3000/api/categories").then((res) => res.json()),
   });
 
-  const onSubmit = async (formData:FieldValues) => {
-    const session = await getSession();
-
-    if (session?.user.isAdmin) {
-      try {
-        const userEmail = session?.user.email;
-
-        // Assuming /api/products is your API endpoint for adding products
-        const response = await axios.post("http://localhost:3000/api/products", {
-          ...formData,
-
-        });
-
-        if (response.status === 201) {
-          // Product added successfully
-          console.log("Product added successfully:", response.data);
-
-          // Reset the form
-          form.reset();
-        } else {
-          console.log("Product adding failed:", response.data);
+  React.useEffect(() => {
+    // Fetch user's email from session when categories data is available
+    if (!isLoading) {
+      getSession().then((session) => {
+        if (session?.user?.email) {
+          form.setValue('userEmail', session.user.email);
         }
-      } catch (error) {
-        console.log("Error adding product:", error);
-      }
-    } else {
-      console.log("User is not an admin or session not found");
+      });
     }
-  };
-  const { data: session } = useSession();
+  }, [isLoading,form]);
 
+  const onSubmit = async (data: FieldValues) => {
+    try {
+      const response = await fetch('http://localhost:3000/api/products', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log('Product added successfully:', responseData);
+        
+      } else {
+        console.error('Product adding failed:', response.statusText);
+      }
+      
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
+    form.reset();
+  };
+  const session = getSession();
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -84,7 +89,7 @@ export function AddPdt() {
             <FormItem>
               <FormLabel>Title</FormLabel>
               <FormControl>
-                <Input placeholder="Product title" {...field} />
+                <Input  type="text" placeholder="Product title" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -99,6 +104,19 @@ export function AddPdt() {
               <FormLabel>Description</FormLabel>
               <FormControl>
                 <Textarea placeholder="Product description" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="isFeatured"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Featured</FormLabel>
+              <FormControl>
+                <input type="checkbox"  {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -127,6 +145,7 @@ export function AddPdt() {
               <FormLabel>Price</FormLabel>
               <FormControl>
                 <Input
+                type="number"
                   placeholder="Price"
                   {...field}
                   // Ensure the value is a number
@@ -145,36 +164,19 @@ export function AddPdt() {
               <FormLabel>Category</FormLabel>
               <FormControl>
                 <select {...field}>
-                  {categories?.map(
-                    (category: { slug: string; title: string }) => (
-                      <option key={category.slug}>{category.title}</option>
-                    )
-                  )}
+                <option value="">Select Category</option>
+        {categories?.map((category: category) => (
+          <option key={category.slug} value={category.slug}>
+            {category.title}
+          </option>
+        ))}
                 </select>
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="userEmail"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>User Email</FormLabel>
-              <FormControl>
-                {/* Set the value to the current user's email */}
-                <Input
-                  placeholder="User Email"
-                  {...field}
-                  value={session?.user.email!}
-                  readOnly
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+       
 
         <Button type="submit">Submit</Button>
       </form>

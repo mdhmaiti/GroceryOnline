@@ -4,13 +4,13 @@ import { z } from "zod";
   
 
  export const productSchema = z.object({
-    id: z.string(),
+    
     title: z.string().min(2, {
       message: "Title must be at least 2 characters.",
     }),
     desc: z.string(),
     img: z.string().optional(),
-    price: z.number().positive(),
+    price: z.coerce.number().positive(),
     isFeatured: z.boolean().default(false),
     catSlug: z.string(),
     userEmail: z.string().email(),

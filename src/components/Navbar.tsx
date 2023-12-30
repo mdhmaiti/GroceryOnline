@@ -10,10 +10,6 @@ import { ModeToggle } from "./ui/darkToggle";
 import { AccountButton } from "./accountButton";
 
 
-const pacifico = Pacifico({
-  subsets: ["latin"],
-  weight: "400"
-});
 
 const navItems = [
   { id: 1, title: "Home", url: "/" },
@@ -39,7 +35,7 @@ const Navbar = () => {
               priority={true}
               alt="Logo"
             />
-            <span className={` text-xl tracking-widest hover:text-emerald-400 glow ${pacifico.className}`}>Grocery online</span>
+            <span className={` text-xl font-semibold hover:text-emerald-400 glow `}>Grocery online</span>
           </Link>
           <ModeToggle/>
            <AccountButton />

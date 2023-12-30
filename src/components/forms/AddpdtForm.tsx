@@ -7,30 +7,55 @@ import React from 'react';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { useQuery } from '@tanstack/react-query';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+
 
 type category = {
   title: string;
   slug: string;
 };
 
-interface FormData {
-  title: string;
-  desc: string;
-  price: number;
-  catSlug: string;
-  isFeatured: boolean;
-  userEmail: string;
-}
+// interface FormData {
+//   title: string;
+//   desc: string;
+//   price: number;
+//   catSlug: string;
+//   isFeatured: boolean;
+//   userEmail: string;
+// }
+ const productSchema = z.object({
+    
+  title: z.string().min(2, {
+    message: "Title must be at least 2 characters.",
+  }),
+  desc: z.string(),
+  img: z.string().optional(),
+  price: z.coerce.number().positive(),
+  isFeatured: z.boolean().default(false),
+  catSlug: z.string(),
+  userEmail: z.string().email(),
+  options: z.array(
+      z.object({
+        title: z.string(),
+        additionalPrice: z.number(),
+      })
+    ).optional(),
+  });
+ 
+  type FormData = z.infer<typeof productSchema>;
 
-
-
-const AddPdtsss = () => {
+const AddPdtForm = () => {
   const {
     register,
     handleSubmit,
     setValue,
+    reset,
+    
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<FormData>({
+    resolver:zodResolver(productSchema)
+  });
 
   const { isLoading, error, data:categories } = useQuery({
     queryKey: ["categories"],
@@ -62,6 +87,8 @@ const AddPdtsss = () => {
       if (response.ok) {
         const responseData = await response.json();
         console.log('Product added successfully:', responseData);
+        reset();
+        
       } else {
         console.error('Product adding failed:', response.statusText);
       }
@@ -71,20 +98,20 @@ const AddPdtsss = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <label>Title:</label>
+    <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col justify-center gap-4'>
+      <label className='text-md font-semibold'>Title:</label>
       <Input {...register('title', { required: 'Title is required' })} />
-      {errors.title && <span>{errors.title.message}</span>}
+      {errors.title && <span className='text-sm text-red-500'>{errors.title.message}</span>}
 
-      <label>Description:</label>
+      <label className='text-md font-semibold'>Description:</label>
       <Input {...register('desc')} />
 
-      <label>Price:</label>
+      <label className='text-md font-semibold'>Price:</label>
       <Input {...register('price', { required: 'Price is required' })} type="number" />
-      {errors.price && <span>{errors.price.message}</span>}
+      {errors.price && <span className='text-sm text-red-500'>{errors.price.message}</span>}
 
-      <label>Category:</label>
-      <select {...register('catSlug', { required: 'Category is required' })}>
+      <label className='text-md font-semibold'>Category:</label>
+      <select className='outline-none rounded-md text-md p-2 focus:bg-accent focus:text-accent-foreground' {...register('catSlug', { required: 'Category is required' })}>
         <option value="">Select Category</option>
         {categories?.map((category: category) => (
           <option key={category.slug} value={category.slug}>
@@ -92,11 +119,12 @@ const AddPdtsss = () => {
           </option>
         ))}
       </select>
-      {errors.catSlug && <span>{errors.catSlug.message}</span>}
+      {errors.catSlug && <span className='text-sm text-red-500'>{errors.catSlug.message}</span>}
 
-      <label>
-        Is Featured:
-        <input {...register('isFeatured')} type="checkbox" />
+      <label className='flex flex-row items-center gap-2'>
+        <p className='text-md font-semibold '> Is Featured:</p>
+        <input  {...register('isFeatured')} type="checkbox" />
+        
       </label>
 
       <input type="hidden" {...register('userEmail')} />
@@ -106,4 +134,4 @@ const AddPdtsss = () => {
   );
 };
 
-export default AddPdtsss;
+export default AddPdtForm;
