@@ -1,15 +1,15 @@
-" use client"
+" use client";
 // working
-import { useForm } from 'react-hook-form';
+import { useForm } from "react-hook-form";
 
-import { getSession } from 'next-auth/react';
-import React from 'react';
-import { Input } from '../ui/input';
-import { Button } from '../ui/button';
-import { useQuery } from '@tanstack/react-query';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-
+import { getSession } from "next-auth/react";
+import React from "react";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
+import { useQuery } from "@tanstack/react-query";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useToast } from "../ui/use-toast";
 
 type category = {
   title: string;
@@ -24,8 +24,7 @@ type category = {
 //   isFeatured: boolean;
 //   userEmail: string;
 // }
- const productSchema = z.object({
-    
+const productSchema = z.object({
   title: z.string().min(2, {
     message: "Title must be at least 2 characters.",
   }),
@@ -35,15 +34,17 @@ type category = {
   isFeatured: z.boolean().default(false),
   catSlug: z.string(),
   userEmail: z.string().email(),
-  options: z.array(
+  options: z
+    .array(
       z.object({
         title: z.string(),
         additionalPrice: z.number(),
       })
-    ).optional(),
-  });
- 
-  type FormData = z.infer<typeof productSchema>;
+    )
+    .optional(),
+});
+
+type FormData = z.infer<typeof productSchema>;
 
 const AddPdtForm = () => {
   const {
@@ -51,13 +52,18 @@ const AddPdtForm = () => {
     handleSubmit,
     setValue,
     reset,
-    
+
     formState: { errors },
   } = useForm<FormData>({
-    resolver:zodResolver(productSchema)
+    resolver: zodResolver(productSchema),
   });
 
-  const { isLoading, error, data:categories } = useQuery({
+ 
+  const {
+    isLoading,
+    error,
+    data: categories,
+  } = useQuery({
     queryKey: ["categories"],
     queryFn: () =>
       fetch("http://localhost:3000/api/categories").then((res) => res.json()),
@@ -68,50 +74,74 @@ const AddPdtForm = () => {
     if (!isLoading) {
       getSession().then((session) => {
         if (session?.user?.email) {
-          setValue('userEmail', session.user.email);
+          setValue("userEmail", session.user.email);
         }
       });
     }
   }, [isLoading, setValue]);
 
+  const { toast } = useToast();
+
   const onSubmit = async (data: FormData) => {
     try {
-      const response = await fetch('http://localhost:3000/api/products', {
-        method: 'POST',
+      const response = await fetch("http://localhost:3000/api/products", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       });
 
       if (response.ok) {
+        toast({
+          title: "product added successfully",
+        });
         const responseData = await response.json();
-        console.log('Product added successfully:', responseData);
-        reset();
+
+        console.log("Product added successfully:", responseData);
         
+        reset();
       } else {
-        console.error('Product adding failed:', response.statusText);
+        console.error("Product adding failed:", response.statusText);
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description: "There was a problem with your request.",
+        });
       }
     } catch (error) {
-      console.error('Error submitting form:', error);
+      console.error("Error submitting form:", error);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col justify-center gap-4'>
-      <label className='text-md font-semibold'>Title:</label>
-      <Input {...register('title', { required: 'Title is required' })} />
-      {errors.title && <span className='text-sm text-red-500'>{errors.title.message}</span>}
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col justify-center gap-4"
+    >
+      <label className="text-md font-semibold">Title:</label>
+      <Input {...register("title", { required: "Title is required" })} />
+      {errors.title && (
+        <span className="text-sm text-red-500">{errors.title.message}</span>
+      )}
 
-      <label className='text-md font-semibold'>Description:</label>
-      <Input {...register('desc')} />
+      <label className="text-md font-semibold">Description:</label>
+      <Input {...register("desc")} />
 
-      <label className='text-md font-semibold'>Price:</label>
-      <Input {...register('price', { required: 'Price is required' })} type="number" />
-      {errors.price && <span className='text-sm text-red-500'>{errors.price.message}</span>}
+      <label className="text-md font-semibold">Price:</label>
+      <Input
+        {...register("price", { required: "Price is required" })}
+        type="number"
+      />
+      {errors.price && (
+        <span className="text-sm text-red-500">{errors.price.message}</span>
+      )}
 
-      <label className='text-md font-semibold'>Category:</label>
-      <select className='outline-none rounded-md text-md p-2 focus:bg-accent focus:text-accent-foreground' {...register('catSlug', { required: 'Category is required' })}>
+      <label className="text-md font-semibold">Category:</label>
+      <select
+        className="outline-none rounded-md text-md p-2 focus:bg-accent focus:text-accent-foreground"
+        {...register("catSlug", { required: "Category is required" })}
+      >
         <option value="">Select Category</option>
         {categories?.map((category: category) => (
           <option key={category.slug} value={category.slug}>
@@ -119,15 +149,16 @@ const AddPdtForm = () => {
           </option>
         ))}
       </select>
-      {errors.catSlug && <span className='text-sm text-red-500'>{errors.catSlug.message}</span>}
+      {errors.catSlug && (
+        <span className="text-sm text-red-500">{errors.catSlug.message}</span>
+      )}
 
-      <label className='flex flex-row items-center gap-2'>
-        <p className='text-md font-semibold '> Is Featured:</p>
-        <input  {...register('isFeatured')} type="checkbox" />
-        
+      <label className="flex flex-row items-center gap-2">
+        <p className="text-md font-semibold "> Is Featured:</p>
+        <input {...register("isFeatured")} type="checkbox" />
       </label>
 
-      <input type="hidden" {...register('userEmail')} />
+      <input type="hidden" {...register("userEmail")} />
 
       <Button type="submit">Submit</Button>
     </form>
