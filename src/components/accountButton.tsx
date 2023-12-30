@@ -21,6 +21,7 @@ import { useToast } from "./ui/use-toast";
 import { useEffect } from "react";
 import { ToastAction } from "./ui/toast";
 import GoogleIcon from "./ui/GoogleIcon";
+import AdminSwitch from "./AdminSwitch";
 
 export function AccountButton() {
   const { data: session, status } = useSession();
@@ -36,6 +37,13 @@ export function AccountButton() {
   
   const handleSignOut = async () => {
     await signOut();
+  };
+
+  //toggle admin
+
+  const handleToggleAdmin = (newStatus: Boolean) => {
+    // You can perform additional actions if needed
+    console.log(`User is now ${newStatus ? 'admin' : 'not admin'}`);
   };
   useEffect(() => {
     if (status === "authenticated") {
@@ -67,7 +75,7 @@ export function AccountButton() {
         <DropdownMenuSeparator />
         <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
           {/* if there is already a user present show logout, if not show login */}
-          {status === "authenticated" && session ? (
+          {status === "authenticated" && session ? (<div className=" flex flex-col gap-2">
             <DropdownMenuRadioItem
             className="flex flex-row items-center justify-center p-2 gap-2"
               onClick={() => {
@@ -91,7 +99,17 @@ export function AccountButton() {
             >
              <GoogleIcon Height={"30"} Width={"30"}/>
                 <p className="text-md font-bold">Google Sign-out</p>
+                
             </DropdownMenuRadioItem>
+           
+      <p className="mx-auto">Status: {session.user.isAdmin ? 'Admin' : 'Not Admin'}</p>
+      <div className="mx-auto my-1">
+      <AdminSwitch  isAdmin={session.user.isAdmin} onToggle={handleToggleAdmin} />
+
+      </div>
+          
+             </div>
+            
           ) : (
             <>
               <DropdownMenuRadioItem
