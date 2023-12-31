@@ -37,16 +37,16 @@ export const cartItemSchema = z.object({
   });
   
   // Zod schema for CategoryType
-  export const categorySchema = z.array(
+  export const categorySchema = 
     z.object({
-      id: z.string(),
+      
       slug: z.string(),
       title: z.string(),
-      desc: z.string().optional(),
-      img: z.string().optional(),
+      desc: z.string(),
+      img: z.string(),
       color: z.string(),
     })
-  );
+
   
   // Zod schema for OrderType
   export const orderSchema = z.object({

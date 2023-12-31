@@ -1,4 +1,5 @@
 
+import { productSchema } from "@/types/types";
 import { getAuthSession } from "@/utils/auth";
 import prisma from "@/utils/db";
 import { NextRequest, NextResponse } from "next/server";
@@ -44,11 +45,17 @@ export const POST = async(req:NextRequest)=>{
       // note in the front end you must have a user email which will be auto filled by the session email
       // after auto filling the email the api is triggered 
       const body = await req.json();
+      // zod validation backend
+      const parseBody = productSchema.safeParse(body);
+      if(!parseBody.success){
+        console.log(parseBody.error)
+        return new NextResponse(JSON.stringify("invalid input" ),{status:400});
+      }
       // const userEmail = session?.user.email;
       
       const product = await prisma.product.create({
         data: {
-          ...body,
+          ...parseBody.data,
           
       }});
       return  new NextResponse(JSON.stringify(product), { status: 201 });
