@@ -3,25 +3,25 @@ import { z } from "zod";
 
   
 
- export const productSchema = z.object({
-    
-    title: z.string().min(2, {
-      message: "Title must be at least 2 characters.",
-    }),
-    desc: z.string(),
-    img: z.string().optional(),
-    price: z.coerce.number().positive(),
-    isFeatured: z.boolean().default(false),
-    catSlug: z.string(),
-    userEmail: z.string().email(),
-    options: z.array(
-        z.object({
-          title: z.string(),
-          additionalPrice: z.number(),
-        })
-      ).optional(),
-    });
-   
+export const productSchema = z.object({
+  title: z.string().min(2, {
+    message: "Title must be at least 2 characters.",
+  }),
+  desc: z.string(),
+  img: z.string().optional(),
+  price: z.coerce.number().positive(),
+  isFeatured: z.boolean().default(false),
+  catSlug: z.string(),
+  userEmail: z.string().email(),
+  options: z
+    .array(
+      z.object({
+        title: z.string(),
+        additionalPrice: z.number(),
+      })
+    )
+    .optional(),
+});
   
   
   
