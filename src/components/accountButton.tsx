@@ -13,7 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { UserRound } from "lucide-react";
+import {UserRound } from "lucide-react";
 
 import { signIn, signOut, useSession } from "next-auth/react";
 
@@ -22,12 +22,18 @@ import { useEffect } from "react";
 import { ToastAction } from "./ui/toast";
 import GoogleIcon from "./ui/GoogleIcon";
 import AdminSwitch from "./AdminSwitch";
+import { useRouter } from "next/navigation";
 
 export function AccountButton() {
   const { data: session, status } = useSession();
+  const router = useRouter()
+
+  
 
   const { toast } = useToast();
   const [position, setPosition] = React.useState("bottom");
+
+ 
 
   const handleSignIn = async () => {
     await signIn("google");
@@ -41,10 +47,7 @@ export function AccountButton() {
 
   //toggle admin
 
-  const handleToggleAdmin = (newStatus: Boolean) => {
-    // You can perform additional actions if needed
-    console.log(`User is now ${newStatus ? 'admin' : 'not admin'}`);
-  };
+ 
   useEffect(() => {
     if (status === "authenticated") {
       try {
@@ -102,10 +105,13 @@ export function AccountButton() {
                 
             </DropdownMenuRadioItem>
            
-      <p className="mx-auto">Status: {session.user.isAdmin ? 'Admin' : 'Not Admin'}</p>
+      <p className="mx-auto">Status: {
+      
+      session.user.isAdmin ? 'Admin' : 'Not Admin'}</p>
+      
       <div className="mx-auto my-1">
-      <AdminSwitch  isAdmin={session.user.isAdmin} onToggle={handleToggleAdmin} />
-
+       <AdminSwitch  isAdmin={session.user.isAdmin}  /> 
+      
       </div>
           
              </div>

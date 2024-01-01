@@ -1,86 +1,73 @@
-"use client"
-import { useEffect, useState } from 'react';
+"use client";
+import { useEffect, useState } from "react";
 
-import axios from 'axios';
-import { Switch } from './ui/switch';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
+import axios from "axios";
+import { Switch } from "./ui/switch";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import { boolean } from "zod";
+import { revalidatePath } from "next/cache";
 
 
+// maintaining this single source of truth only works if i want to get things from both the server and client side it created wierd bugs
 interface AdminSwitchProps {
-    isAdmin: Boolean; // Use Boolean with a capital "B"
-    onToggle: (newStatus: boolean) => void;
-  }
+  isAdmin: Boolean; // Use Boolean with a capital "B"
+ 
   
-  const AdminSwitch: React.FC<AdminSwitchProps> = ({ isAdmin, onToggle }) => {
-    const [checked, setChecked] = useState(Boolean(isAdmin)); // Convert to boolean
-  
-    const router = useRouter()
-  const { isLoading, error, data,refetch  } = useQuery({
-    queryKey: ["admin"],
-    queryFn: async () => {
-      const response = await axios.get('http://localhost:3000/api/admin');
-      return response.data;
-      
+}
+
+// ... (imports)
+
+
+const AdminSwitch = ({ isAdmin,  }:AdminSwitchProps) => {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+
+  const [ischecked,setChecked] = useState<boolean>(!!isAdmin)
+
+  // Fetch initial admin status on component mount
+
+
+
+
+const mutation = useMutation({
+  mutationFn:  async ({ status }: { status: boolean }) => {
+    const response = await axios.put('http://localhost:3000/api/admin', { isAdmin:status});
+    return response.data;
   },
+  onSuccess() {
+    queryClient.invalidateQueries({ queryKey: ["admin"] });
+    
+    
+    console.log('mutation works');
+    
+    
   
+  },
 });
 
-  const queryClient = useQueryClient();
+  const updateAdminStatus = async () => {
+    try {
+      await mutation.mutateAsync({ status:!ischecked  });
 
-  useEffect(() => {
-    // Update the checked state when the data changes
-    if (data) {
-      setChecked(data.isAdmin);
+      setChecked(!ischecked)
+        // Invalidate the query to trigger a refetch
+       
+        console.log('Admin status updated successfully');
+        window.location.reload();
+    
+    } catch (error) {
+      console.error('Error updating admin status:', error);
     }
-  }, [data])
+  };
 
-  const mutation = useMutation({
-    mutationFn:  async ({ status }: { status: boolean }) => {
-      const response = await axios.put('http://localhost:3000/api/admin', { isAdmin: status });
-      return response.data;
-    },
-    onSuccess() {
-      queryClient.invalidateQueries({ queryKey: ["admin"] });
-      window.location.reload();
-      
-    
-    },
-  });
+ 
 
-    
-    const handleToggle = async (newChecked: boolean) => {
-      setChecked(newChecked);
-      router.push('/')
-  
-      try {
-        // Make a request to update the user's isAdmin status
-        await mutation.mutateAsync({ status: newChecked });
-        // Notify parent component about the toggle
-        onToggle(newChecked);
-        
-        
-        
-        
-        
-        refetch();
-      } catch (error) {
-        console.error('Error updating admin status:', error);
-        // Revert the switch state if there is an error
-        setChecked(!newChecked);
-      }
-    };
-  
-
-  return (
-    <Switch
-    onCheckedChange
-    ={handleToggle}
-      checked={checked}
-      
-     
-    />
-  );
+  return <div>
+   
+   <Switch onCheckedChange={updateAdminStatus} checked={ischecked}  />
+   </div>
 };
 
 export default AdminSwitch;
+

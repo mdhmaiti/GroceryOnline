@@ -13,6 +13,7 @@ import { useToast } from "../ui/use-toast";
 import { productSchema } from "@/types/types";
 import { useDropzone} from 'react-dropzone';
 import Image from "next/image";
+import { Textarea } from "../ui/textarea";
 
 type category = {
   title: string;
@@ -21,7 +22,7 @@ type category = {
 
 type TFormData = z.infer<typeof productSchema>;
 
-const AddPdtForm = ({className}:{className:string}) => {
+const AddPdtForm = () => {
   const {
     register,
     handleSubmit,
@@ -32,6 +33,7 @@ const AddPdtForm = ({className}:{className:string}) => {
   } = useForm<TFormData>({
     resolver: zodResolver(productSchema),
   });
+  const { toast } = useToast();
 
   // to upload the image function
   
@@ -99,7 +101,7 @@ const AddPdtForm = ({className}:{className:string}) => {
     }
   }, [isLoading, setValue]);
 
-  const { toast } = useToast();
+  
 
   const onSubmit = async (data: TFormData) => {
     try {
@@ -128,7 +130,7 @@ const AddPdtForm = ({className}:{className:string}) => {
         reset();
         setPreview(null);
       } else {
-        console.error("Product adding failed:", response.statusText);
+        console.log("Product adding failed:", response.statusText);
         toast({
           variant: "destructive",
           title: "Uh oh! Something went wrong.",
@@ -136,7 +138,7 @@ const AddPdtForm = ({className}:{className:string}) => {
         });
       }
     } catch (error) {
-      console.error("Error submitting form:", error);
+      console.log("Error submitting form:", error);
     }
   };
 
@@ -152,7 +154,7 @@ const AddPdtForm = ({className}:{className:string}) => {
       )}
 
       <label className="text-md font-semibold">Description:</label>
-      <Input {...register("desc")} />
+      <Textarea {...register("desc")} />
 
       <label className="text-md font-semibold">Price:</label>
       <Input
@@ -185,8 +187,9 @@ const AddPdtForm = ({className}:{className:string}) => {
       </label>
 
       {/* handling the image */}
+      <br/>
       <label className="text-md font-semibold">Picture</label>
-      <div {...getRootProps({className:className})}className="border-dotted border-2 border-sky-500 rounded-2xl p-4 opacity-70" >
+      <div {...getRootProps()}className="border-dotted border-2 border-sky-500 rounded-2xl p-4 opacity-70" >
               <input {...getInputProps()} />
               {
                 isDragActive ?
