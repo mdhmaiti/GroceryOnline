@@ -4,6 +4,7 @@ import { z } from "zod";
   
 
 export const productSchema = z.object({
+  id:z.string(),
   title: z.string().min(2, {
     message: "Title must be at least 2 characters.",
   }),
@@ -31,7 +32,7 @@ export const cartItemSchema = z.object({
     id: z.string(),
     title: z.string(),
     img: z.string().optional(),
-    price: z.number(),
+    price: z.coerce.number(),
     optionTitle: z.string().optional(),
     quantity: z.number(),
   });
@@ -39,10 +40,11 @@ export const cartItemSchema = z.object({
   // Zod schema for CategoryType
   export const categorySchema = 
     z.object({
-      title: z.string(),
-      desc: z.string(),
-      slug: z.string(),
-      color: z.string(),
+      id:z.string(),
+      title: z.string().min(2, { message: "Must be 2 or more characters long" }),
+      desc: z.string().min(2, { message: "Must be 2 or more characters long" }),
+      slug: z.string().min(2, { message: "Must be 2 or more characters long" }),
+      color: z.string().min(2, { message: "Must be 2 or more characters long" }),
       img: z.string().optional(),
       
       
@@ -54,7 +56,7 @@ export const cartItemSchema = z.object({
   export const orderSchema = z.object({
     id: z.string(),
     userEmail: z.string(),
-    price: z.number(),
+    price: z.coerce.number(),
     products: z.array(cartItemSchema),
     status: z.string(),
     createdAt: z.date(),
@@ -64,8 +66,8 @@ export const cartItemSchema = z.object({
   // Zod schema for CartType
   export const cartSchema = z.object({
     products: z.array(cartItemSchema),
-    totalItems: z.number(),
-    totalPrice: z.number(),
+    totalItems: z.coerce.number(),
+    totalPrice: z.coerce.number(),
   });
   
   export const actionTypesSchema = z.object({
