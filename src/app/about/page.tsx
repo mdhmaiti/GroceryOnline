@@ -2,9 +2,9 @@
 
 const About = () => {
   return (
-    <div>
-        <h1>Thank you for visiting my site. This is my personal project. The items that are listed here are not actually there.</h1>
-    </div>
+   
+        <h1 className="flex flex-col mx-auto justify-center h-screen w-4/5 text-2xl text-center antialiased font-semibold">Thank you for visiting my site. This is my personal project. The items that are listed here is just for demo.</h1>
+    
   )
 }
 

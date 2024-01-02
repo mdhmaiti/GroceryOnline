@@ -130,16 +130,20 @@ const AddCatForm = () => {
 
       <label className="text-md font-semibold">Description:</label>
       <Textarea {...register("desc")} />
+      {errors.desc && (
+        <span className="text-sm text-red-500">{errors.desc.message}</span>
+      )}
+     
       
       <label className="text-md font-semibold">Slug: </label>
       <p className = " text-sm text-blue-400 opacity-60"> make it unique otherwise it will not add  </p>
-       <Input {...register("slug", { required: "Title is required" })} />
+       <Input {...register("slug", { required: "slug is required" })} />
       {errors.slug && (
         <span className="text-sm text-red-500">{errors.slug.message}</span>
       )}
      
       <label className="text-md font-semibold">color:</label>
-       <Input {...register("color", { required: "Title is required" })} />
+       <Input {...register("color", { required: "color is required" })} />
       {errors.color && (
         <span className="text-sm text-red-500">{errors.color.message}</span>
       )}

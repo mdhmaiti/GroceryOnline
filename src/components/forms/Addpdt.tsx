@@ -23,6 +23,7 @@ import {  productSchema } from "@/types/types";
 import { getSession, useSession } from "next-auth/react";
 
 import React from "react";
+import { Checkbox } from "../ui/checkbox";
 
 type FormData = z.infer<typeof productSchema>;
 type category = {
@@ -116,7 +117,7 @@ export function AddPdt() {
             <FormItem>
               <FormLabel>Featured</FormLabel>
               <FormControl>
-                <input type="checkbox"  {...field} />
+                <Checkbox asChild  {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
