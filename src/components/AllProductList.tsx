@@ -8,7 +8,7 @@ import { Button } from "./ui/button";
 import { Card, CardTitle, CardContent, CardFooter } from "./ui/card";
 
 const getData = async (category:string) => {
-  const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL! || 'http://localhost:3000';
+  const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3000';
   const apiURL = `${baseURL}/api/products?cat=${category}`;
   const res = await fetch(apiURL, {
     cache: "no-store",

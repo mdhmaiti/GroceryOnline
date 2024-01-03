@@ -77,7 +77,7 @@ const AddPdtForm = () => {
       return resData.url;
      };
 
-     const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL! || 'http://localhost:3000';
+     const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3000';
      const apiURLCat = `${baseURL}/api/categories`;
 
   // fetching the categories
@@ -109,7 +109,7 @@ const AddPdtForm = () => {
     console.log('Form submitted with data:')
     console.log("working")
     try {
-      const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL! || 'http://localhost:3000';
+      const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3000';
       const apiURL = `${baseURL}/api/products`;
       const url = await upload();
       const response = await fetch(apiURL, {

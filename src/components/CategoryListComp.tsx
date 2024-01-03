@@ -7,7 +7,7 @@ import { Card, CardTitle, CardContent, CardFooter } from "./ui/card";
 import Link from "next/link";
 
 const getData = async ()=>{
-  const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL! || 'http://localhost:3000';
+  const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3000';
   const apiURL = `${baseURL}/api/categories`;
   const res = await fetch(apiURL,{
     cache:"no-store"
