@@ -77,7 +77,8 @@ const AddPdtForm = () => {
       return resData.url;
      };
 
-
+     const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL! || 'http://localhost:3000';
+     const apiURLCat = `${baseURL}/api/categories`;
 
   // fetching the categories
   const {
@@ -87,7 +88,8 @@ const AddPdtForm = () => {
   } = useQuery({
     queryKey: ["categories"],
     queryFn: () =>
-      fetch("http://localhost:3000/api/categories").then((res) => res.json()),
+    
+      fetch(apiURLCat).then((res) => res.json()),
   });
 
   React.useEffect(() => {
@@ -107,8 +109,10 @@ const AddPdtForm = () => {
     console.log('Form submitted with data:')
     console.log("working")
     try {
+      const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL! || 'http://localhost:3000';
+      const apiURL = `${baseURL}/api/products`;
       const url = await upload();
-      const response = await fetch("http://localhost:3000/api/products", {
+      const response = await fetch(apiURL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

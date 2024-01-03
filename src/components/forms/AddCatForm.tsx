@@ -76,7 +76,10 @@ const AddCatForm = () => {
     console.log('Form submitted with data:');
     try {
       const url = await upload();
-      const response = await fetch("http://localhost:3000/api/categories", {
+      const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL! || 'http://localhost:3000';
+      const apiURL = `${baseURL}/api/categories`;
+      
+      const response = await fetch(apiURL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

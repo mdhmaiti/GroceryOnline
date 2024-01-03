@@ -9,9 +9,13 @@ import { z } from "zod";
 
 
 const getData = async (category:string)=>{
-  const res = await fetch(`http://localhost:3000/api/products?cat=${category}`,{
-    cache:"no-store"
-  })
+
+  
+  const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL! || 'http://localhost:3000';
+  const apiURL = `${baseURL}/api/products?cat=${category}`;
+  const res = await fetch(apiURL, {
+    cache: "no-store",
+  });
 
   if (!res.ok) {
     throw new Error("Failed!");
