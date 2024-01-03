@@ -20,7 +20,7 @@ const Orders =  () => {
 
   // Render the content only if the user is authenticated
   // react query kora data fetch korbo , tar por admin hola data update korbo 
-  return <div>dfjgjdfklgdjklgjdklgjdklgjdkgj</div>;
+  return <div></div>;
 };
 
 export default Orders;

@@ -10,7 +10,7 @@ const CategoryList = () => {
      
     </div>
     <div className=" min-h-screen md:px-10 sm:px-5">
-     <CategoryListComp/> 
+     {/* <CategoryListComp/>  */}
 
     </div>
     
