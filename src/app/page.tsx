@@ -15,7 +15,7 @@ const Home =() =>{
       <ResizablePage/> 
     </div>
     <div className=" min-h-screen md:px-10 sm:px-5">
-     {/* <Featured/>  */}
+     <Featured/>  
 
     </div>
     
