@@ -1,4 +1,4 @@
-
+import { ProductType } from "@/types/types";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
@@ -8,11 +8,10 @@ import React from "react";
 import { z } from "zod";
 
 
-
-const getData = async (category:string) => {
-  const res = await fetch(`http://localhost:3000/api/products?cat=${category}`, {
-    cache: "no-store",
-  });
+const getData = async (category:string)=>{
+  const res = await fetch(`http://localhost:3000/api/products?cat=${category}`,{
+    cache:"no-store"
+  })
 
   if (!res.ok) {
     throw new Error("Failed!");
@@ -25,23 +24,19 @@ const getData = async (category:string) => {
 
   return validatedProducts;
 };
-
+type Props = {
+  params:{category:string}
+}
 const productArraySchema = z.array(productSchema);
 type ProductArrayType = z.infer<typeof productArraySchema>;
-
-
-type Props = {
-    params:{category:string}
-  }
-
 const AllProductList
 = async ({params}:Props) => {
-const featuredProducts: ProductArrayType = await getData(params.category);
+  const products:ProductArrayType = await getData(params.category)
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mx-auto p-4 max-h-screen my-20 overflow-y-scroll">
       {/* Card 1 */}
-      {featuredProducts.map((item:any, index:any) => (
+      {products.map((item:any, index:any) => (
       <Card key={index} className="p-1 flex flex-col  space-y-1 bg-gradient-to-br from-emerald-500 ">
         <CardTitle className=" flex justify-center p-3" >
           <p>{item.title}</p>

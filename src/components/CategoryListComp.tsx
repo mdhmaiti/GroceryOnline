@@ -1,4 +1,4 @@
-import { categorySchema } from "@/types/types";
+import { CategoryType, categorySchema } from "@/types/types";
 import Image from "next/image";
 import React from "react";
 import { z } from "zod";
@@ -6,10 +6,10 @@ import { Button } from "./ui/button";
 import { Card, CardTitle, CardContent, CardFooter } from "./ui/card";
 import Link from "next/link";
 
-const getData = async () => {
-  const res = await fetch("http://localhost:3000/api/categories", {
-    cache: "no-store",
-  });
+const getData = async ()=>{
+  const res = await fetch("http://localhost:3000/api/categories",{
+    cache:"no-store"
+  })
 
   if (!res.ok) {
     throw new Error("Failed!");
@@ -18,21 +18,20 @@ const getData = async () => {
   const data = await res.json();
 
   // Validate the array of products
-  const validatedCategories = categoryArraySchema.parse(data);
+  const validatedProducts = categoryArraySchema.parse(data);
 
-  return validatedCategories;
+  return validatedProducts;
 };
 
 const categoryArraySchema = z.array(categorySchema);
 type CategoryArrayType = z.infer<typeof categoryArraySchema>;
-
 const CategoryListComp = async () => {
-const featuredProducts: CategoryArrayType = await getData();
+const categories:CategoryArrayType = await getData()
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mx-auto p-4 max-h-screen overflow-y-scroll">
       {/* Card 1 */}
-      {featuredProducts.map((item:any, index:any) => (
+      {categories.map((item:any, index:any) => (
       <Card key={index} className="p-1 flex flex-col  space-y-1 bg-gradient-to-br from-emerald-500 ">
         <CardTitle className=" flex justify-center p-3" >
           <p>{item.title}</p>

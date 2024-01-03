@@ -47,7 +47,7 @@ const AddCatForm = () => {
         const data = new FormData();
         data.append("file", acceptedFiles[0]);
         data.append("upload_preset", "grocery_tf1dxrsc");
-        data.append('api_key', APIKEY);
+        
         
     
         const res = await fetch(
@@ -73,7 +73,7 @@ const AddCatForm = () => {
 
  //submit form
   const onSubmit = async (data: FormData) => {
-    console.log('Form submitted with data:', data);
+    console.log('Form submitted with data:');
     try {
       const url = await upload();
       const response = await fetch("http://localhost:3000/api/categories", {
@@ -91,16 +91,16 @@ const AddCatForm = () => {
 
       if (response.ok) {
         toast({
-          title: "product added successfully",
+          title: "category added successfully",
         });
         const responseData = await response.json();
 
         console.log("Product added successfully:", responseData);
 
         reset();
-        //setPreview(null);
+        setPreview(null);
       } else {
-        console.log("Product adding failed:", response.statusText);
+        console.log("category adding failed:", response.statusText);
         toast({
           variant: "destructive",
           title: "Uh oh! Something went wrong.",

@@ -61,7 +61,7 @@ const AddPdtForm = () => {
       const data = new FormData();
       data.append("file", acceptedFiles[0]);
       data.append("upload_preset", "grocery_tf1dxrsc");
-      data.append('api_key', APIKEY);
+      
       
   
       const res = await fetch(
@@ -104,6 +104,8 @@ const AddPdtForm = () => {
   
 
   const onSubmit = async (data: TFormData) => {
+    console.log('Form submitted with data:')
+    console.log("working")
     try {
       const url = await upload();
       const response = await fetch("http://localhost:3000/api/products", {

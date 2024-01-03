@@ -4,7 +4,7 @@ import { z } from "zod";
   
 
 export const productSchema = z.object({
-  id:z.string(),
+ 
   title: z.string().min(2, {
     message: "Title must be at least 2 characters.",
   }),
@@ -40,11 +40,11 @@ export const cartItemSchema = z.object({
   // Zod schema for CategoryType
   export const categorySchema = 
     z.object({
-      id:z.string(),
+      
       title: z.string().min(2, { message: "Must be 2 or more characters long" }),
-      desc: z.string().min(2, { message: "Must be 2 or more characters long" }),
+      desc: z.string(),
       slug: z.string().min(2, { message: "Must be 2 or more characters long" }),
-      color: z.string().min(2, { message: "Must be 2 or more characters long" }),
+      color: z.string(),
       img: z.string().optional(),
       
       
@@ -76,50 +76,52 @@ export const cartItemSchema = z.object({
   });
   
   // ////////////////
-  // export type categoryType = {
-  //   id: string;
-  //   slug: string;
-  //   title: string;
-  //   desc?: string;
-  //   img?: string;
-  //   color: string;
-  // }[];
+
+  export type CategoryType = {
+    id: string;
+    slug: string;
+    title: string;
+    desc?: string;
+    img?: string;
+    color: string;
+  };
+
+
+  export type ProductType = {
+    id: string;
+    title: string;
+    desc?: string;
+    img?: string;
+    price: number;
+    options?: { title: string; additionalPrice: number }[];
+  };
   
-  // export type ProductType = {
-  //   id: string;
-  //   title: string;
-  //   desc?: string;
-  //   img?: string;
-  //   price: number;
-  //   options?: { title: string; additionalPrice: number }[];
-  // };
+  export type OrderType = {
+    id: string;
+    userEmail: string;
+    price: number;
+    products: CartItemType[];
+    status: string;
+    createdAt: Date;
+    intent_id?: String;
+  };
   
-  // export type OrderType = {
-  //   id: string;
-  //   userEmail: string;
-  //   price: number;
-  //   products: CartItemType[];
-  //   status: string;
-  //   createdAt: Date;
-  //   intent_id?: String;
-  // };
+  export type CartItemType = {
+    id: string;
+    title: string;
+    img?: string;
+    price: number;
+    optionTitle?: string;
+    quantity: number;
+  };
   
-  // export type CartItemType = {
-  //   id: string;
-  //   title: string;
-  //   img?: string;
-  //   price: number;
-  //   optionTitle?: string;
-  //   quantity: number;
-  // };
+  export type CartType = {
+    products: CartItemType[];
+    totalItems: number;
+    totalPrice: number;
+  };
   
-  // export type CartType = {
-  //   products: CartItemType[];
-  //   totalItems: number;
-  //   totalPrice: number;
-  // };
-  
-  // export type ActionTypes = {
-  //   addToCart:(item:CartItemType)=> void;
-  //   removeFromCart:(item:CartItemType)=> void;
-  // }
+  export type ActionTypes = {
+    addToCart:(item:CartItemType)=> void;
+    removeFromCart:(item:CartItemType)=> void;
+  }
