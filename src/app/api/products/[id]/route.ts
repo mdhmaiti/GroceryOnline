@@ -4,25 +4,25 @@ import { NextRequest, NextResponse } from "next/server";
 
 // get a single product to display on a page
 
-export const GET = async ({ params }: { params: { id: string } }) => {
-  const { id } = params;
+// export const GET = async (req:NextRequest,{params}:{params:{id:string}}) => {
+//   const { id } = params;
 
-  try {
-    const product = await prisma.product.findUnique({
-      where: {
-        id: id,
-      },
-    });
+//   try {
+//     const product = await prisma.product.findUnique({
+//       where: {
+//         id: id,
+//       },
+//     });
 
-    return new NextResponse(JSON.stringify(product), { status: 200 });
-  } catch (err) {
-    console.log(err);
-    return new NextResponse(
-      JSON.stringify({ message: "failed to get the product" }),
-      { status: 500 }
-    );
-  }
-};
+//     return new NextResponse(JSON.stringify(product), { status: 200 });
+//   } catch (err) {
+//     console.log(err);
+//     return new NextResponse(
+//       JSON.stringify({ message: "failed to get the product" }),
+//       { status: 500 }
+//     );
+//   }
+// };
 
 // delete the product if he is an admin
 export const DELETE = async (
