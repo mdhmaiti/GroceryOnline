@@ -1,16 +1,13 @@
-
-
-import { Button } from "@/components/ui/button";
-import { Card, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
-import { productSchema } from "@/types/types";
+import { categorySchema } from "@/types/types";
 import Image from "next/image";
 import React from "react";
 import { z } from "zod";
+import { Button } from "./ui/button";
+import { Card, CardTitle, CardContent, CardFooter } from "./ui/card";
+import Link from "next/link";
 
-
-
-const getData = async (category:string) => {
-  const res = await fetch(`http://localhost:3000/api/products?cat=${category}`, {
+const getData = async () => {
+  const res = await fetch("http://localhost:3000/api/categories", {
     cache: "no-store",
   });
 
@@ -21,25 +18,19 @@ const getData = async (category:string) => {
   const data = await res.json();
 
   // Validate the array of products
-  const validatedProducts = productArraySchema.parse(data);
+  const validatedCategories = categoryArraySchema.parse(data);
 
-  return validatedProducts;
+  return validatedCategories;
 };
 
-const productArraySchema = z.array(productSchema);
-type ProductArrayType = z.infer<typeof productArraySchema>;
+const categoryArraySchema = z.array(categorySchema);
+type CategoryArrayType = z.infer<typeof categoryArraySchema>;
 
-
-type Props = {
-    params:{category:string}
-  }
-
-const AllProductList
-= async ({params}:Props) => {
-const featuredProducts: ProductArrayType = await getData(params.category);
+const CategoryListComp = async () => {
+const featuredProducts: CategoryArrayType = await getData();
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mx-auto p-4 max-h-screen my-20 overflow-y-scroll">
+    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mx-auto p-4 max-h-screen overflow-y-scroll">
       {/* Card 1 */}
       {featuredProducts.map((item:any, index:any) => (
       <Card key={index} className="p-1 flex flex-col  space-y-1 bg-gradient-to-br from-emerald-500 ">
@@ -59,9 +50,14 @@ const featuredProducts: ProductArrayType = await getData(params.category);
 
 <CardFooter className="flex flex-col items-center space-y-1 justify-center">
 <p className="text-sm "> {item.desc}</p>
-          <p className=" text-md font-semibold"><span className="px-2">price:</span>{item.price}</p>
+          <p className=" text-md font-semibold"><span className="px-2">price:</span>{item.color}</p>
 
-          <Button variant={"default"}>Add to cart</Button>
+          <Button variant={"default"}>   <Link
+          href={`/shop/${item.slug}`}
+          
+          
+           
+        > browse</Link></Button>
         </CardFooter>
        
         
@@ -435,5 +431,4 @@ const featuredProducts: ProductArrayType = await getData(params.category);
   );
 };
 
-export default AllProductList
-;
+export default CategoryListComp;
