@@ -29,10 +29,11 @@ const AdminSwitch = ({ isAdmin,  }:AdminSwitchProps) => {
 
 
 
-
+  const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3000';
+  const apiURL = `${baseURL}/api/admin`;
 const mutation = useMutation({
   mutationFn:  async ({ status }: { status: boolean }) => {
-    const response = await axios.put('http://localhost:3000/api/admin', { isAdmin:status});
+    const response = await axios.put(apiURL, { isAdmin:status});
     return response.data;
   },
   onSuccess() {

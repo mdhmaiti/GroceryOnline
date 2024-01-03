@@ -1,30 +1,25 @@
 
-
-import { getAuthSession } from "@/utils/auth";
+"use client"
+//import { getAuthSession } from "@/utils/auth";
 import { useSession } from "next-auth/react";
 
 import { redirect, useRouter } from "next/navigation";
 
 
-const Orders =  async() => {
-  //const {data:session} =  useSession();
-  //const router = useRouter();
+const Orders =  () => {
+  const {data:session} =  useSession();
+  const router = useRouter();
 
   // this is the correct way of dynamic navigation and the next auth session do not use the use router hook 
-  // if (!session) {
-  //  // redirect("/sign-in");
-  //  router.push('/sign-in')
-  //  return null;
+   if (!session) {
+     router.push('/sign-in')
+   return null;
     
-    
-  // }
-  const session = await getAuthSession();
+   }
 
-  // this is the correct way of dynamic navigation and the next auth session do not use the use router hook 
-  if (!session) {
-    redirect("/sign-in");
-  }
   
+
+
 
   // Render the content only if the user is authenticated
   // react query kora data fetch korbo , tar por admin hola data update korbo 
