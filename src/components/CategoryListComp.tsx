@@ -1,6 +1,6 @@
 import { CategoryType, categorySchema } from "@/types/types";
 import Image from "next/image";
-import React from "react";
+import React, { Suspense } from "react";
 import { z } from "zod";
 import { Button } from "./ui/button";
 import { Card, CardTitle, CardContent, CardFooter } from "./ui/card";
@@ -32,6 +32,7 @@ const categories:CategoryArrayType = await getData()
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mx-auto p-4 max-h-screen overflow-y-scroll">
+      <Suspense fallback={<p>Loading feed...</p>}>
       {/* Card 1 */}
       {categories.map((item:any, index:any) => (
       <Card key={index} className="p-1 flex flex-col  space-y-1 bg-gradient-to-br from-emerald-500 ">
@@ -428,6 +429,7 @@ const categories:CategoryArrayType = await getData()
           <Button>Add to cart</Button>
         </CardFooter>
       </Card>
+      </Suspense>
     </div>
   );
 };
