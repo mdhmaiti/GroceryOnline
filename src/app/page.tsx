@@ -16,7 +16,7 @@ const Home =() =>{
     </div>
     <div className=" min-h-screen md:px-10 sm:px-5">
     <Suspense fallback={<p>Loading feed...</p>}>
-     <Featured/> 
+     {/* <Featured/>  */}
      </Suspense> 
 
     </div>
