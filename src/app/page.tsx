@@ -3,6 +3,7 @@ import ItemCard from "@/components/ItemCard";
 import { ResizablePage } from "@/components/ResizablePage";
 import { Button } from "@/components/ui/button";
 import Image from 'next/image'
+import { Suspense } from "react";
 
 const Home =() =>{
   return(
@@ -15,7 +16,9 @@ const Home =() =>{
       <ResizablePage/> 
     </div>
     <div className=" min-h-screen md:px-10 sm:px-5">
-     <Featured/>  
+    <Suspense fallback={<p>Loading feed...</p>}>
+     <Featured/> 
+     </Suspense> 
 
     </div>
     

@@ -1,5 +1,5 @@
 import CategoryListComp from '@/components/CategoryListComp'
-import React from 'react'
+import React, { Suspense } from 'react'
 
 const CategoryList = () => {
   return (
@@ -10,8 +10,9 @@ const CategoryList = () => {
      
     </div>
     <div className=" min-h-screen md:px-10 sm:px-5">
+    <Suspense fallback={<p>Loading feed...</p>}>
       <CategoryListComp/> 
-
+      </Suspense>
     </div>
     
    

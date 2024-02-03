@@ -1,21 +1,19 @@
-import { ProductType } from "@/types/types";
 
-import { Button } from "@/components/ui/button";
-import { Card, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { productSchema } from "@/types/types";
 import Image from "next/image";
-import React, { Suspense } from "react";
+import React from "react";
 import { z } from "zod";
+import { Button } from "./ui/button";
+import { Card, CardTitle, CardContent, CardFooter } from "./ui/card";
 
 
-const getData = async (category:string)=>{
+const getData = async () => {
+  const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3000';
+  const apiURL = `${baseURL}/api/products`;
+  
+  const res = await fetch(apiURL);
 
   
-  const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3000';
-  const apiURL = `${baseURL}/api/products?cat=${category}`;
-  const res = await fetch(apiURL, {
-    cache: "no-store",
-  });
 
   if (!res.ok) {
     throw new Error("Failed!");
@@ -28,20 +26,22 @@ const getData = async (category:string)=>{
 
   return validatedProducts;
 };
-type Props = {
-  params:{category:string}
-}
+
 const productArraySchema = z.array(productSchema);
 type ProductArrayType = z.infer<typeof productArraySchema>;
-const AllProductList
-= async ({params}:Props) => {
-  const products:ProductArrayType = await getData(params.category)
+
+const Featured = async () => {
+
+
+  
+const featuredProducts: ProductArrayType = await getData();
+
+
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mx-auto p-4 max-h-screen my-20 overflow-y-scroll">
-      <Suspense fallback={<p>Loading feed...</p>}> 
+    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mx-auto p-4 max-h-screen overflow-y-scroll">
       {/* Card 1 */}
-      {products.map((item:any, index:any) => (
+      {featuredProducts.map((item:any, index:any) => (
       <Card key={index} className="p-1 flex flex-col  space-y-1 bg-gradient-to-br from-emerald-500 ">
         <CardTitle className=" flex justify-center p-3" >
           <p>{item.title}</p>
@@ -70,7 +70,6 @@ const AllProductList
         
       </Card>
       ))}
-      </Suspense>
 
       <Card>
         <CardTitle>
@@ -436,5 +435,4 @@ const AllProductList
   );
 };
 
-export default AllProductList
-;
+export default Featured;
