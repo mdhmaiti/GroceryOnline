@@ -1,8 +1,7 @@
 import Featured from "@/components/Featured";
-import ItemCard from "@/components/ItemCard";
+
 import { ResizablePage } from "@/components/ResizablePage";
-import { Button } from "@/components/ui/button";
-import Image from 'next/image'
+
 import { Suspense } from "react";
 
 const Home =() =>{

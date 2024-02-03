@@ -5,28 +5,42 @@ import React, { Suspense } from "react";
 import { z } from "zod";
 import { Button } from "./ui/button";
 import { Card, CardTitle, CardContent, CardFooter } from "./ui/card";
+import axios from "axios";
 
 
 const getData = async () => {
   const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3000';
   const apiURL = `${baseURL}/api/products`;
   
-  const res = await fetch(apiURL, {
-    cache: "no-store",
-  });
+  // const res = await fetch(apiURL, {
+  //   cache: "no-store",
+  // });
+  try {
+    const response = await axios.get(apiURL, {
+      headers: {
+        'Cache-Control': 'no-store',
+      },
+    });
+    const data = await response.data;
 
+    const validatedProducts = productArraySchema.parse(data);
+
+    return validatedProducts;
+  } catch (error) {
+    throw new Error('Failed!');
+  }
   
 
-  if (!res.ok) {
-    throw new Error("Failed!");
-  }
+  // if (!res.ok) {
+  //   throw new Error("Failed!");
+  // }
 
-  const data = await res.json();
+  // const data = await res.json();
 
   // Validate the array of products
-  const validatedProducts = productArraySchema.parse(data);
+  // const validatedProducts = productArraySchema.parse(data);
 
-  return validatedProducts;
+  // return validatedProducts;
 };
 
 const productArraySchema = z.array(productSchema);
