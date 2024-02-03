@@ -1,3 +1,4 @@
+
 import { productSchema } from "@/types/types";
 import Image from "next/image";
 import React from "react";
@@ -5,13 +6,14 @@ import { z } from "zod";
 import { Button } from "./ui/button";
 import { Card, CardTitle, CardContent, CardFooter } from "./ui/card";
 
+
 const getData = async () => {
   const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3000';
   const apiURL = `${baseURL}/api/products`;
   
-  const res = await fetch(apiURL, {
-    cache: "no-store",
-  });
+  const res = await fetch(apiURL);
+
+  
 
   if (!res.ok) {
     throw new Error("Failed!");
@@ -29,7 +31,12 @@ const productArraySchema = z.array(productSchema);
 type ProductArrayType = z.infer<typeof productArraySchema>;
 
 const Featured = async () => {
+
+
+  
 const featuredProducts: ProductArrayType = await getData();
+
+
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mx-auto p-4 max-h-screen overflow-y-scroll">
